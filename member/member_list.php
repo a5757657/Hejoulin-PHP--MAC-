@@ -94,10 +94,11 @@ $rows = $pdo->query($sql)->fetchAll();
                 </th>
             </tr>
             </thead>
+            <tbody>
             <?php foreach ($rows
 
             as $r): ?>
-            <tbody>
+            <tr>
             <td>
                 <input class="del" type="checkbox" name="check">
             </td>

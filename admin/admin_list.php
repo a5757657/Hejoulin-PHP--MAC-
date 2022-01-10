@@ -81,14 +81,16 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th>建立時間</th>
             </tr>
             </thead>
-            <?php foreach ($rows as $r): ?>
             <tbody>
+            <?php foreach ($rows as $r): ?>
+            <tr>
 
             <!--`admin_id`, `admin_name`, `admin_pass`, `user_time`-->
             <td><?= $r['admin_id'] ?></td>
             <td><?= $r['admin_name'] ?></td>
             <td><?= $r['admin_pass'] ?></td>
             <td><?= $r['user_time'] ?></td>
+
 
             </tr>
             <?php endforeach; ?>
