@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/parts/__connect_db.php' ?>
+<?php require __DIR__ . '/../parts/__connect_db.php' ?>
 <?php
 
 $title = '活動管理';
@@ -34,10 +34,10 @@ $rows = $pdo->query($sql)->fetchAll();
 ?>
 
 
-<?php include __DIR__ . '/parts/__head.php' ?>
-<?php include __DIR__ . '/parts/__navbar.html' ?>
-<?php include __DIR__ . '/parts/__sidebar.html' ?>
-<?php include __DIR__ . '/parts/__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 
 <style>
     /* 清酒圖片的css樣式 */
@@ -105,11 +105,12 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th class="col-2">截止日期</th>
                 <th class="col-2">新增時間</th>
                 <th class="col-2">更新時間</th>
+                <th class="col-1">編輯</th>
             </tr>
         </thead>
         <tbody>
             <!-- 讀入資料 -->
-            <?php foreach ($rows as $r) :?>
+            <?php foreach ($rows as $r) : ?>
                 <tr class="d-flex">
                     <td>
                         <input class="form-check-input check" type="checkbox" value="" />
@@ -131,7 +132,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <td class="col-2"><?= $r['event_create_date'] ?></td>
                     <td class="col-2"><?= $r['event_update_date'] ?></td>
                     <td class="col-1">
-                        <a href="product-edit.php?pro_id=<?= $r['pro_id'] ?>"><i class="fas fa-pen"></i></a>
+                        <a href='#'><i class="fas fa-pen"></i></a>
                     </td>
                 </tr>
             <?php endforeach;  ?>
@@ -159,11 +160,11 @@ $rows = $pdo->query($sql)->fetchAll();
 </div>
 
 
-<?php include __DIR__ . '/parts/__main_end.html' ?>
+<?php include __DIR__ . '/../parts/__main_end.html' ?>
 <!-- 如果要 modal 的話留下面的結構 -->
-<?php include __DIR__ . '/parts/__modal.html' ?>
+<?php include __DIR__ . '/../parts/__modal.html' ?>
 
-<?php include __DIR__ . '/parts/__script.html' ?>
+<?php include __DIR__ . '/../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
@@ -228,6 +229,5 @@ $rows = $pdo->query($sql)->fetchAll();
         }
 
     }) */
-
 </script>
-<?php include __DIR__ . '/parts/__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>
