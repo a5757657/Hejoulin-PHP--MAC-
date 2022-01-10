@@ -89,8 +89,8 @@ $rows = $pdo->query($sql)->fetchAll();
                 <td><?= $r['news_id'] ?></td>
                 <td><?= $r['title'] ?></td>
                 <td><?= $r['content'] ?></td>
-                <td><img src="..\img\pro_img\<?= $r['cover_pic'] ?>" width="100%"></td>
-                <!-- <td><img src="..\img\pro_img\<?= $r['pics'] ?>" width="100%"></td> -->
+                <td><img src="..\img\news\<?= $r['cover_pic'] ?>" width="100%"></td>
+                <!-- <td><img src="..\img\news\<?= $r['pics'] ?>" width="100%"></td> -->
                 <td><?= $r['create_at'] ?></td>
                 <td><?= $r['modified_at'] ?></td>
                 <td class="text-center">
