@@ -154,16 +154,23 @@ if(isset($_POST['export'])) {
 <?php include __DIR__ . '\..\parts\__main_start.html'?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 <!-- table -->
-<div class="d-flex justify-content-between mt-5">
+<div class="d-flex justify-content-between mt-5 align-items-center">
     <div class="d-flex gap-1">
-    <button type="button" class="btn btn-secondary btn-sm" onclick="deleteMany()">刪除選擇項目</button>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='restaurant_add.php'">新增合作餐廳</button>
-    <form method="post">
-    <input type="submit" class="btn btn-secondary btn-sm" name="export" value="輸出所有資料"></input>
-    </form>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="deleteMany()">刪除選擇項目</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='restaurant_add.php'">新增合作餐廳</button>
+        <div>
+            <form method="post">
+            <input type="submit" class="btn btn-secondary btn-sm" name="export" value="輸出所有資料"></input>
+            </form>
+        </div>
+        
+        <div class="input-group input-group-sm" style="width: 200px">
+            <input id="search" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <button id="send" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+        </div>
     </div>
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
+        <ul class="pagination" style="margin-bottom: 0px !important">
             <li class="page-item <?= 1==$page ? 'disabled' : '' ?>">
                 <a class="page-link" href="?<?php 
                     if( isset($_GET['res_type']) && !isset($_GET['res_area']) ) {
@@ -226,7 +233,7 @@ if(isset($_POST['export'])) {
         </ul>
     </nav>
 </div>
-<div class="table-responsive" style="overflow-x: scroll; height: 80vh;">
+<div class="table-responsive mt-3" style="overflow-x: scroll; height: 80vh;">
 <!-- table style 是為了讓表格的卷軸顯示在比較明顯的位置 -->
     <table class="table table-striped table-sm">
         <thead>
@@ -506,6 +513,13 @@ if(isset($_POST['export'])) {
     // const url = new URL(location.href);
     // const param = new URLSearchParams(url.search);
     // let page = param.get('page');   // 將 query string "page" 送到前端
+
+    // search
+    const send = document.querySelector("#send");
+    const search = document.querySelector("#search");
+    send.addEventListener("click", function() {
+        location.href = `restaurant-search.php?param=${search.value}`
+    })
 
     
 </script>
