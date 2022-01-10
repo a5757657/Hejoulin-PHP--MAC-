@@ -14,7 +14,7 @@ $output = [
 
 // 上傳圖片
 
-$upload_folder = __DIR__. '/img/news';
+$upload_folder = __DIR__ . '/../img/pro_img';
 
 $exts = [
     'image/jpeg' => '.jpg',
