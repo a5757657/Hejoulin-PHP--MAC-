@@ -345,7 +345,6 @@ if(isset($_POST['export'])) {
                     <a href="restaurant_edit.php?res_id=<?= $r['res_id']?>"><i class="fas fa-pen"></i></a>
                 </td>
             </tr>
-            <tr>
             <?php } ?>
         </tbody>
     </table>
