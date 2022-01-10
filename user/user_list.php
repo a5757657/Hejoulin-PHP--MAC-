@@ -1,6 +1,12 @@
 <?php
 require __DIR__ . '\..\parts\__connect_db.php';
 
+// 如果未登入管理帳號就轉向
+if (! $_SESSION['admin']) {
+    header("Location: " . "../login/login.php");
+    exit;
+}
+
 $title = '使用者列表';
 $pageName = 'userList';
 
@@ -107,16 +113,33 @@ $rows = $pdo->query($sql)->fetchAll();
             </tbody>
         </table>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">訊息</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">...</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal.html' ?>
 <?php include __DIR__ . '\..\parts\__script.html' ?>
     <!-- 如果要 modal 的話留下面的 script -->
     <script>
+
+        const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+        const modalBody = document.querySelector('.modal-body');
+
         function delete_it(user_id) {
-            if (confirm(`確定要刪除＃${user_id}的資料嗎`)) {
-                location.href = `user-delete.php?user_id=${user_id}`;
-            }
+            modalBody.innerHTML = `確定要刪除編號為 ${user_id} 的資料嗎？`;
+            document.querySelector('.modal-footer').innerHTML = `<a href="user-delete.php?user_id=${user_id}" class="btn btn-secondary">刪除</a>`;
+            modal.show();
         }
 
         function cAll() {

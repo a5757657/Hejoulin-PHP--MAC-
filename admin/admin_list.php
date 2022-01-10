@@ -1,6 +1,11 @@
 <?php
 require __DIR__ . '\..\parts\__connect_db.php';
 
+// 如果未登入管理帳號就轉向
+if (! $_SESSION['admin']) {
+    header("Location: " . "../login/login.php");
+    exit;
+}
 
 $title = '管理者列表';
 $pageName = 'adminList';

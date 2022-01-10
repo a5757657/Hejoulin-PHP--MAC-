@@ -7,35 +7,35 @@ if (! $_SESSION['admin']) {
     exit;
 }
 
-$title = '會員列表';
-$pageName = 'memberList';
+$title = '酒標列表';
+$pageName = 'markList';
 
-$perPage = 3;
+$perPage = 5;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-$t_sql = "SELECT COUNT(1) FROM `member`";
+$t_sql = "SELECT COUNT(1) FROM `mark`";
 
 //總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);//幾頁
 
-
-$sql = sprintf("SELECT * FROM `member` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM `mark` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
 <?php include __DIR__ . '\..\parts\__head.php' ?>
 <?php include __DIR__ . '\..\parts\__navbar.html' ?>
 <?php include __DIR__ . '\..\parts\__sidebar.html' ?>
-
 <?php include __DIR__ . '\..\parts\__main_start.html' ?>
+
     <div class="d-flex justify-content-between mt-5">
         <div class="btnbar">
             <button type="button" class="btn btn-secondary btn-sm" id="delAll">刪除選擇項目</button>
-            <button type="button" class="btn btn-secondary btn-sm"><a href="member_insert.php"
+            <button type="button" class="btn btn-secondary btn-sm"><a href="mark_insert.php"
                                                                       style="text-decoration: none; color: white;">新增</a>
             </button>
         </div>
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
@@ -43,13 +43,11 @@ $rows = $pdo->query($sql)->fetchAll();
                         <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
-
                 <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
-
                 <?php for ($i = $page - 2; $i <= $page + 2; $i++)
                     if ($i >= 1 && $i <= $totalPages): ?>
                         <li class="page-item <?= $i == $page ? 'active' : '' ?>">
@@ -58,13 +56,11 @@ $rows = $pdo->query($sql)->fetchAll();
                             </a>
                         </li>
                     <?php endif; ?>
-
-                <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+                <li class="page-item<?= $totalPages == $page ? '' : 'disabled' ?>">
                     <a class="page-link" href="?page=<?= $page + 1 ?>">
-                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-angle-right" style="color: gray"></i>
                     </a>
                 </li>
-
                 <li class="page-item">
                     <a class="page-link" href="?page=<?= $totalPages ?>">
                         <i class="fas fa-angle-double-right"></i>
@@ -80,15 +76,12 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th>
                     <input class="form-check-input" type="checkbox" value="" id="allCk" onclick="cAll()"/>
                 </th>
+
                 <th scope="col">刪除</th>
-                <!--`member_id`, `user_id`, `member_name`, `member_bir`, `member_mob`, `member_addr`, `member_level`-->
-                <th>會員ID</th>
-                <th>使用者ID</th>
-                <th>會員名稱</th>
-                <th>會員生日</th>
-                <th>手機號碼</th>
-                <th>聯絡地址</th>
-                <th>會員等級</th>
+                <th>酒標ID</th>
+                <th>會員ID </th>
+                <th>pics</th>
+                <th>建立時間</th>
                 <th>
                     <a href="#"><i class="fas fa-pen"></i></a>
                 </th>
@@ -102,19 +95,16 @@ $rows = $pdo->query($sql)->fetchAll();
                 <input class="del" type="checkbox" name="check">
             </td>
             <td>
-                <a href="javascript: delete_it(<?= $r['user_id'] ?>)">
+                <a href="javascript: delete_it(<?= $r['mark_id'] ?>)">
                     <i class="fas fa-trash-alt text-center"></i>
                 </a>
             </td>
+            <td><?= $r['mark_id'] ?></td>
             <td><?= $r['member_id'] ?></td>
-            <td><?= $r['user_id'] ?></td>
-            <td><?= $r['member_name'] ?></td>
-            <td><?= $r['member_bir'] ?></td>
-            <td><?= $r['member_mob'] ?></td>
-            <td><?= htmlentities($r['member_addr']) ?></td>
-            <td><?= $r['member_level'] ?></td>
+            <td><?= $r['pics'] ?></td>
+            <td><?= $r['create_at'] ?></td>
             <td>
-                <a href="member_edit.php?user_id=<?= $r['user_id'] ?>">
+                <a href="mark_edit.php?mark_id=<?= $r['mark_id'] ?>">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
@@ -133,7 +123,7 @@ $rows = $pdo->query($sql)->fetchAll();
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
@@ -141,19 +131,19 @@ $rows = $pdo->query($sql)->fetchAll();
 
 <?php include __DIR__ . '\..\parts\__main_end.html' ?>
 <?php include __DIR__ . '\..\parts\__script.html' ?>
-
+    <!-- 如果要 modal 的話留下面的 script -->
     <script>
-
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
         const modalBody = document.querySelector('.modal-body');
 
-        function delete_it(user_id) {
-            modalBody.innerHTML = `確定要刪除編號為 ${user_id} 的資料嗎？`;
-            document.querySelector('.modal-footer').innerHTML = `<a href="member-delete.php?user_id=${user_id}" class="btn btn-secondary">刪除</a>`;
+        function delete_it(mark_id) {
+            modalBody.innerHTML = `確定要刪除編號為 ${mark_id} 的資料嗎？`;
+            document.querySelector('.modal-footer').innerHTML = `<a href="mark-delete.php?mark_id=${mark_id}" class="btn btn-secondary">刪除</a>`;
             modal.show();
         }
 
-        function cAll(){
+
+        function cAll() {
             const checkAll = document.getElementById("allCk");
             const cks = document.getElementsByName("check");
 
@@ -167,6 +157,7 @@ $rows = $pdo->query($sql)->fetchAll();
                 }
             }
         }
+
         let delAll = document.querySelector('#delAll');
         delAll.addEventListener('click', () => {
             let del = document.querySelectorAll('.del');
@@ -186,6 +177,7 @@ $rows = $pdo->query($sql)->fetchAll();
                 delete_it(arr);
             }
         })
+
 
     </script>
 <?php include __DIR__ . '\..\parts\__foot.html' ?>
