@@ -26,7 +26,7 @@ $sql = sprintf("SELECT * FROM `admin` LIMIT %s, %s", ($page-1)*$perPage, $perPag
 $rows = $pdo->query($sql)->fetchAll();
 ?>
 <?php include __DIR__ . '\..\parts\__head.php'?>
-<?php include __DIR__ . '\..\parts\__navbar.html'?>
+<?php include __DIR__ . '\..\parts\__navbar.php'?>
 <?php include __DIR__ . '\..\parts\__sidebar.html'?>
 <?php include __DIR__ . '\..\parts\__main_start.html'?>
 

@@ -16,7 +16,7 @@ if(empty($row)){
 
 ?>
 <?php include __DIR__ . '\..\parts\__head.php'?>
-<?php include __DIR__ . '\..\parts\__navbar.html'?>
+<?php include __DIR__ . '\..\parts\__navbar.php'?>
 <?php include __DIR__ . '\..\parts\__sidebar.html'?>
 <?php include __DIR__ . '\..\parts\__main_start.html'?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->

@@ -7,7 +7,7 @@ $pageName = 'user_insert';
 
 ?>
 <?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.html' ?>
+<?php include __DIR__ . '\..\parts\__navbar.php' ?>
 <?php include __DIR__ . '\..\parts\__sidebar.html' ?>
 <?php include __DIR__ . '\..\parts\__main_start.html' ?>
 
