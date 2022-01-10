@@ -19,12 +19,6 @@ if (empty($gift_id)) {
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-if(empty($gift_img)){
-    $output['code'] = 403;
-    $output['error'] = '請上傳正確的圖片';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
 if (empty($box_color)) {
     $output['code'] = 405;
     $output['error'] = '請輸入正確的禮盒顏色';
