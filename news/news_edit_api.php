@@ -1,6 +1,6 @@
-<?php require __DIR__. '\..\parts\__connect_db.php';
+<?php require __DIR__ . '\..\parts\__connect_db.php';
 // 如果未登入管理帳號就轉向
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -15,10 +15,11 @@ $output = [
 
 $sid = isset($_POST['news_id']) ? intval($_POST['news_id']) : 0;
 
-if(empty($sid)) {
+if (empty($sid)) {
     $output['code'] = 400;
     $output['error'] = '沒有 編號';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
 }
 
 $title = $_POST['title'] ?? '';
@@ -55,19 +56,24 @@ $pics = $_POST['pics'] ?? '';
 
 
 
-$sql="UPDATE `news` SET
+$sql = "UPDATE `news` SET
 `title` = ?,
 `content` = ?,
 `cover_pic` = ?,
-`pics` = ?,
+`pics` = ?
+WHERE `news`.`news_id`=?";
+
+$sql_time = "UPDATE `news` SET
 `modified_at`= NOW()
 WHERE `news`.`news_id`=?";
 
 
 
 $stmt = $pdo->prepare($sql);
-// $timenow = date_create();
-// $timenow_d=date_format($timenow, 'Y-m-d H:i:s');
+
+$stmt_time = $pdo->prepare($sql_time);
+
+
 
 $stmt->execute([
     $title,
@@ -77,24 +83,11 @@ $stmt->execute([
     $sid
 ]);
 
-if($stmt->rowCount()>=1){
+if ($stmt->rowCount() == 0) {
     $output['error'] = '資料沒有修改';
 } else {
     $output['success'] = true;
+    $stmt_time->execute([$sid]);
 }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

@@ -14,7 +14,7 @@ $output = [
 
 // 上傳圖片
 
-$upload_folder = __DIR__ . '/../img/pro_img';
+$upload_folder = __DIR__ . '/../img/news';
 
 $exts = [
     'image/jpeg' => '.jpg',
@@ -103,18 +103,3 @@ $output['rowCount'] = $stmt->rowCount();
 
 // echo json_encode($_POST);
 echo json_encode($output);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
