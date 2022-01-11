@@ -722,6 +722,11 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">請選擇酒器</div>`;
         }
 
+        if (container_id.value == 5 && pro_gift.value == 3) {
+            isPass = false;
+            warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">請選擇酒器</div>`;
+        }
+
         if (isPass) {
 
             const fd = new FormData(document.form1);
