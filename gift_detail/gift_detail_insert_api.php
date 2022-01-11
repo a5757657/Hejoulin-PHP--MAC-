@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php';
+<?php require __DIR__ . '.\..\parts\__connect_db.php';
 
 header('Content-Type: application/json');
 
@@ -13,18 +13,6 @@ $gift_img = $_POST['gift_img'] ?? '';
 $box_color = $_POST['box_color'] ?? '';
 $gift_pro = $_POST['gift_pro'] ?? '';
 
-if (empty($gift_id)) {
-    $output['code'] = 401;
-    $output['error'] = '請輸入正確的對應禮盒種類';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-if (empty($box_color)) {
-    $output['code'] = 405;
-    $output['error'] = '請輸入正確的禮盒顏色';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
 if (empty($gift_pro)) {
     $output['code'] = 407;
     $output['error'] = '請輸入正確的禮盒商品';
@@ -45,8 +33,6 @@ if (!empty($_FILES['gift_img'])) {
     $ext = $exts[$_FILES['gift_img']['type']]; //拿到對應的副檔名
 
     if (!empty($ext)) {
-
-        //$filename = sha1($_FILES['gift_img']['name'] . rand()) . $ext;
         $filename = $_FILES['gift_img']['name']. $ext;
         $output['ext'] = $ext;
         $target = $upload_folder . "\\" . $filename;

@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php';
+<?php require __DIR__ . '.\..\parts\__connect_db.php';
 
 header('Content-Type: application/json');
 
@@ -14,24 +14,6 @@ $gift_img = $_POST['gift_img'] ?? '';
 $box_color = $_POST['box_color'] ?? '';
 $gift_pro = $_POST['gift_pro'] ?? '';
 
-if (empty($gift_id)) {
-    $output['code'] = 401;
-    $output['error'] = '請輸入正確的對應禮盒種類';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-// if(empty($gift_img)){
-//     $output['code'] = 403;
-//     $output['error'] = '請上傳正確的圖片';
-//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//     exit;
-// }
-if (empty($box_color)) {
-    $output['code'] = 405;
-    $output['error'] = '請輸入正確的禮盒顏色';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
 if (empty($gift_pro)) {
     $output['code'] = 407;
     $output['error'] = '請輸入正確的禮盒商品';
@@ -50,40 +32,25 @@ $exts = [
 if (!empty($_FILES['gift_img'])) {
 
     $ext = $exts[$_FILES['gift_img']['type']]; //拿到對應的副檔名
-
+    
     if (!empty($ext)) {
-
+       
         $filename = $_FILES['gift_img']['name'] . $ext;
         $output['ext'] = $ext;
         $target = $upload_folder . "\\" . $filename;
-
+        
         if (move_uploaded_file($_FILES['gift_img']['tmp_name'], $target)) {
-
+            
             $sql_img = "UPDATE `product_gift_d` SET `gift_img`=? WHERE `gift_d_id`=?";
-
-            $sql = "UPDATE `product_gift_d` SET
-            `gift_id`=?,
-            `box_color`=?,
-            `gift_pro`=?
-            WHERE `gift_d_id`=?";
-
+            
             $stmt_img = $pdo->prepare($sql_img);
-
+           
             $stmt_img->execute([
                 $filename,
-                $gift_d_id
-                
+                $gift_d_id               
             ]);
-
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                $gift_id,
-                $box_color,
-                $gift_pro,
-                $gift_d_id
-            ]);
-
-            if ($stmt_img->rowCount() == 0 && $stmt->rowCount() == 0) {
+            
+            if ($stmt_img->rowCount() == 0) {
                 $output['error'] = '資料沒有修改';
             } else {
                 $output['success'] = true;
@@ -97,5 +64,23 @@ if (!empty($_FILES['gift_img'])) {
 } else {
     $output['error'] = '沒有上傳檔案';
 }
+
+$sql = "UPDATE `product_gift_d` SET
+            `gift_id`=?,
+            `box_color`=?,
+            `gift_pro`=?
+            WHERE `gift_d_id`=?";
+ $stmt = $pdo->prepare($sql);
+ $stmt->execute([
+     $gift_id,
+     $box_color,
+     $gift_pro,
+     $gift_d_id
+ ]);
+ if($stmt->rowCount() == 0){
+    $output['error'] = '資料沒有修改';
+ }else{
+    $output['success'] = 'true';
+ }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php';
+<?php require __DIR__ . '.\..\parts\__connect_db.php';
 $title = "修改指南答案";
 $pageName = "guide_answer_edit";
 
@@ -6,6 +6,8 @@ if(! isset($_GET['a_no'])){
     header("Location: guide_answer.php");
     exit;
 }
+$sql = "SELECT * FROM guide_q ORDER BY q_cate";
+$rows= $pdo->query($sql)->fetchAll();
 
 $a_no = intval($_GET['a_no']);
 $row = $pdo->query("SELECT * FROM `guide_a` WHERE a_no=$a_no")->fetch();
@@ -14,11 +16,11 @@ if(empty($row)){
     exit;
 }
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php'?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . '.\..\parts\__head.php' ?>
+<?php include __DIR__ . '.\..\parts\__navbar.php'?>
+<?php include __DIR__ . '.\..\parts\__sidebar.html' ?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '.\..\parts\__main_start.html' ?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 <div class="mt-5">
     <div class="row justify-content-center">
@@ -26,11 +28,14 @@ if(empty($row)){
             <div class="card">
                 <h5 class="card-header py-3">修改指南答案</h5>
                 <div class="card-body">
-                    <form name="form_a" onsubmit="sendData(); return false;">
-                    <input type="hidden" name="a_no" value="<?= $row['a_no'] ?>">
-                        <div class="form-group mb-3">
+                    <form name="form_a" onsubmit="sendData(); return false;" method="POST">
+                    <div class="form-group mb-3">
                             <label for="q_id" class="mb-2">對應問題id</label>
-                            <input type="number" class="form-control" id="q_id"  name="q_id" value="<?= ($row['q_id'])?>"/>
+                            <select class="form-control" aria-label="Default select example" id="q_id" name="q_id">
+                            <?php foreach ($rows as $r) : ?>
+                                    <option id="cate" value="<?= $r['q_id'] ?>"><?= $r['q_des'] ?></option>
+                            <?php endforeach ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
 
@@ -48,7 +53,7 @@ if(empty($row)){
         </div>
     </div>
 </div>
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
+<?php include __DIR__ . '.\..\parts\__main_end.html' ?>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,7 +71,7 @@ if(empty($row)){
     </div>
 </div>
 
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . '.\..\parts\__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
     const qId = document.querySelector('#q_id');
@@ -74,15 +79,18 @@ if(empty($row)){
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
     //  modal.show() 讓 modal 跳出
+    let q_id_c = document.querySelector('#q_id').childNodes;
+    q_id_c.forEach(el =>{
+        if(el.value == "<?= $r['q_id'] ?>"){
+            el.setAttribute('selected','selected');
+        }
+    });
+
     function sendData(){
         qId.nextElementSibling.innerHTML = '';
         aItem.nextElementSibling.innerHTML = '';
         let isPass = true;
 
-        if(qId.value < 1){
-            isPass = false;
-            qId.nextElementSibling.innerHTML = '請輸入正確的對應問題id';
-        }
         if(aItem.value.length < 2){
             isPass = false;
             aItem.nextElementSibling.innerHTML = '請輸入正確的答案選項';
@@ -109,4 +117,4 @@ if(empty($row)){
         }
     }
 </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '.\..\parts\__foot.html' ?>

@@ -78,31 +78,5 @@ if (!empty($_FILES['container_img'])) {
     $output['error'] = '沒有上傳檔案01';
 }
 
-if (empty($_FILES['container_img'])) {
-    $ext01 = $exts[$_FILES['container_img']['type']];
-    if (empty($_FILES['container_shadow'])) {
-        $ext02 = $exts[$_FILES['container_shadow']['type']];
-
-        $sql = "UPDATE `product_container` SET
-                            `container_name`=?,
-                            WHERE container_id=?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            $container_name,
-            $container_id
-        ]);
-
-        if ($stmt->rowCount() == 0) {
-            $output['error'] = '資料沒有修改';
-        } else {
-            $output['success'] = true;
-        }
-    } else {
-        $output['error'] = '沒有上傳檔案02';
-    }
-} else {
-    $output['error'] = '沒有上傳檔案01';
-}
-
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
