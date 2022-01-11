@@ -19,14 +19,24 @@ $t_sql = "SELECT COUNT(1) FROM `discount`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);//幾頁
 
+if ($page > $totalPages) {
+    header('Location: discount_list.php?page=' . $totalPages);
+    exit;
+}
+
+if ($page < 1) {
+    header('Location: discount_list.php?page=' . '1');
+    exit;
+}
+
 $sql = sprintf("SELECT * FROM `discount` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . './../parts/__head.php' ?>
+<?php include __DIR__ . './../parts/__navbar.php' ?>
+<?php include __DIR__ . './../parts/__sidebar.html' ?>
+<?php include __DIR__ . './../parts/__main_start.html' ?>
 
     <div class="d-flex justify-content-between mt-5">
         <div class="btnbar">
@@ -139,9 +149,9 @@ $rows = $pdo->query($sql)->fetchAll();
         </div>
     </div>
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
+<?php include __DIR__ . './../parts/__main_end.html' ?>
 
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . './../parts/__script.html' ?>
     <script>
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
         const modalBody = document.querySelector('.modal-body');
@@ -188,4 +198,4 @@ $rows = $pdo->query($sql)->fetchAll();
         })
 
     </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . './../parts/__foot.html' ?>

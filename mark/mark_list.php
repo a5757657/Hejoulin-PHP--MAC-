@@ -3,7 +3,7 @@ require __DIR__ . '\..\parts\__connect_db.php';
 
 
 // 如果未登入管理帳號就轉向
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "./../login/login.php");
     exit;
 }
@@ -19,6 +19,16 @@ $t_sql = "SELECT COUNT(1) FROM `mark`";
 //總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);//幾頁
+
+if ($page > $totalPages) {
+    header('Location: mark_list.php?page=' . $totalPages);
+    exit;
+}
+
+if ($page < 1) {
+    header('Location: mark_list.php?page=' . '1');
+    exit;
+}
 
 $sql = sprintf("SELECT * FROM `mark` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
@@ -80,11 +90,11 @@ $rows = $pdo->query($sql)->fetchAll();
 
                 <th scope="col">刪除</th>
                 <th>酒標ID</th>
-                <th>會員ID </th>
+                <th>會員ID</th>
                 <th>pics</th>
                 <th>建立時間</th>
                 <th>
-                    <a href="#"><i class="fas fa-pen"></i></a>
+                    編輯
                 </th>
             </tr>
             </thead>

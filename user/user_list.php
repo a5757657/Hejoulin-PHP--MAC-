@@ -19,6 +19,16 @@ $t_sql = "SELECT COUNT(1) FROM `user`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);//幾頁
 
+if ($page > $totalPages) {
+    header('Location: user_list.php?page=' . $totalPages);
+    exit;
+}
+
+if ($page < 1) {
+    header('Location: user_list.php?page=' . '1');
+    exit;
+}
+
 $sql = sprintf("SELECT * FROM `user` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();

@@ -1,16 +1,15 @@
 <?php
 require __DIR__ . '\..\parts\__connect_db.php';
-
 // 如果未登入管理帳號就轉向
 if (! $_SESSION['admin']) {
-    header("Location: " . "./../login/login.php");
+    header("Location: " . "../login/login.php");
     exit;
 }
 
 $title = '會員列表';
 $pageName = 'memberList';
 
-$perPage = 3;
+$perPage = 6;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 $t_sql = "SELECT COUNT(1) FROM `member`";
@@ -19,16 +18,25 @@ $t_sql = "SELECT COUNT(1) FROM `member`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows / $perPage);//幾頁
 
+if ($page > $totalPages) {
+    header('Location: member_list.php?page=' . $totalPages);
+    exit;
+}
+
+if ($page < 1) {
+    header('Location: member_list.php?page=' . '1');
+    exit;
+}
 
 $sql = sprintf("SELECT * FROM `member` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . './../parts/__head.php' ?>
+<?php include __DIR__ . './../parts/__navbar.php' ?>
+<?php include __DIR__ . './../parts/__sidebar.html' ?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . './../parts/__main_start.html' ?>
     <div class="d-flex justify-content-between mt-5">
         <div class="btnbar">
             <button type="button" class="btn btn-secondary btn-sm" id="delAll">刪除選擇項目</button>
@@ -89,8 +97,8 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th style="text-align: center">手機號碼</th>
                 <th style="text-align: center">聯絡地址</th>
                 <th style="text-align: center">會員等級</th>
-                <th>
-                    <a href="#"><i class="fas fa-pen"></i></a>
+                <th style="text-align: center">
+                    編輯
                 </th>
             </tr>
             </thead>
@@ -112,7 +120,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <td style="text-align: center"><?= $r['member_mob'] ?></td>
                     <td style="text-align: left"><?= htmlentities($r['member_addr']) ?></td>
                     <td><?= $r['member_level'] ?></td>
-                    <td>
+                    <td style="text-align: center">
                         <a href="member_edit.php?user_id=<?= $r['user_id'] ?>">
                             <i class="fas fa-edit"></i>
                         </a>
@@ -138,8 +146,8 @@ $rows = $pdo->query($sql)->fetchAll();
         </div>
     </div>
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . './../parts/__main_end.html' ?>
+<?php include __DIR__ . './../parts/__script.html' ?>
 
     <script>
 
@@ -187,4 +195,4 @@ $rows = $pdo->query($sql)->fetchAll();
         })
 
     </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . './../parts/__foot.html' ?>
