@@ -50,11 +50,7 @@ $rows = $pdo->query($sql)->fetchAll();
     }
 </style>
 
-<div class="d-flex justify-content-between mt-5">
-    <div class="d-flex justify-content-start gap-2">
-        <button type="button" class="btn btn-secondary btn-sm" id="delAll">刪除選擇項目</button>
-        <a href="product-insert.php"><button type="button" class="btn btn-secondary btn-sm">新增商品</button></a>
-    </div>
+<div class="d-flex justify-content-end mt-5">
 
     <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -88,10 +84,6 @@ $rows = $pdo->query($sql)->fetchAll();
     <table class="table table-striped table-sm">
         <thead>
             <tr class="d-flex">
-                <th>
-                    <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="check() //選取全部的checkbox " />
-                </th>
-                <th class="col-1">刪除</th>
                 <th class="col-1">編號</th>
                 <th class="col-1">分類</th>
                 <th class="col-2">名稱</th>
@@ -105,19 +97,12 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th class="col-2">截止日期</th>
                 <th class="col-2">新增時間</th>
                 <th class="col-2">更新時間</th>
-                <th class="col-1">編輯</th>
             </tr>
         </thead>
         <tbody>
             <!-- 讀入資料 -->
             <?php foreach ($rows as $r) : ?>
                 <tr class="d-flex">
-                    <td>
-                        <input class="form-check-input check" type="checkbox" value="" />
-                    </td>
-                    <td class="col-1">
-                        <a href="javascript: delete_it(<?= $r['event_id'] ?>)"><i class="fas fa-trash"></i></a>
-                    </td>
                     <td class="col-1" id="sid"><?= $r['event_id'] ?></td>
                     <td class="col-1" id="sid"><?= $r['event_cat_name'] ?></td>
                     <td class="col-2"><?= htmlentities($r['event_name']) ?></td>
@@ -131,9 +116,6 @@ $rows = $pdo->query($sql)->fetchAll();
                     <td class="col-2"><?= $r['event_due'] ?></td>
                     <td class="col-2"><?= $r['event_create_date'] ?></td>
                     <td class="col-2"><?= $r['event_update_date'] ?></td>
-                    <td class="col-1">
-                        <a href='#'><i class="fas fa-pen"></i></a>
-                    </td>
                 </tr>
             <?php endforeach;  ?>
 
