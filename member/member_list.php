@@ -80,46 +80,44 @@ $rows = $pdo->query($sql)->fetchAll();
                 <th>
                     <input class="form-check-input" type="checkbox" value="" id="allCk" onclick="cAll()"/>
                 </th>
-                <th scope="col">刪除</th>
+                <th scope="col" style="text-align: center">刪除</th>
                 <!--`member_id`, `user_id`, `member_name`, `member_bir`, `member_mob`, `member_addr`, `member_level`-->
                 <th>會員ID</th>
                 <th>使用者ID</th>
-                <th>會員名稱</th>
-                <th>會員生日</th>
-                <th>手機號碼</th>
-                <th>聯絡地址</th>
-                <th>會員等級</th>
+                <th style="text-align: center">會員名稱</th>
+                <th style="text-align: center">會員生日</th>
+                <th style="text-align: center">手機號碼</th>
+                <th style="text-align: center">聯絡地址</th>
+                <th style="text-align: center">會員等級</th>
                 <th>
                     <a href="#"><i class="fas fa-pen"></i></a>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($rows
-
-            as $r): ?>
-            <tr>
-            <td>
-                <input class="del" type="checkbox" name="check">
-            </td>
-            <td>
-                <a href="javascript: delete_it(<?= $r['user_id'] ?>)">
-                    <i class="fas fa-trash-alt text-center"></i>
-                </a>
-            </td>
-            <td><?= $r['member_id'] ?></td>
-            <td><?= $r['user_id'] ?></td>
-            <td><?= $r['member_name'] ?></td>
-            <td><?= $r['member_bir'] ?></td>
-            <td><?= $r['member_mob'] ?></td>
-            <td><?= htmlentities($r['member_addr']) ?></td>
-            <td><?= $r['member_level'] ?></td>
-            <td>
-                <a href="member_edit.php?user_id=<?= $r['user_id'] ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            </tr>
+            <?php foreach ($rows as $r): ?>
+                <tr>
+                    <td>
+                        <input class="del" type="checkbox" name="check">
+                    </td>
+                    <td style="text-align: center">
+                        <a href="javascript: delete_it(<?= $r['user_id'] ?>)">
+                            <i class="fas fa-trash-alt text-center"></i>
+                        </a>
+                    </td>
+                    <td style="text-align: center"><?= $r['member_id'] ?></td>
+                    <td style="text-align: center"><?= $r['user_id'] ?></td>
+                    <td style="text-align: center"><?= $r['member_name'] ?></td>
+                    <td style="text-align: center"><?= $r['member_bir'] ?></td>
+                    <td style="text-align: center"><?= $r['member_mob'] ?></td>
+                    <td style="text-align: left"><?= htmlentities($r['member_addr']) ?></td>
+                    <td><?= $r['member_level'] ?></td>
+                    <td>
+                        <a href="member_edit.php?user_id=<?= $r['user_id'] ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
