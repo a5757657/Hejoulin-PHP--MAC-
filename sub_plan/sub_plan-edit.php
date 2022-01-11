@@ -4,7 +4,7 @@ $title = 'Edit Data';
 $pageName = 'edit';
 
 //如果未登入管理員帳號，會直接跳轉至別的頁面
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -46,7 +46,18 @@ if (empty($row)) {
                         </div>
                         <div class="mb-3">
                             <label for="sub_products" class="form-label">月配產品</label>
-                            <input type="sub_products" class="form-control" id="sub_products" name="sub_products" value="<?= $row['sub_products'] ?>">
+                            <select name="sub_products" id="sub_products" class="form-select">
+                                <option value="0" selected>選擇商品</option>
+                                <?php
+                                $sql = sprintf("SELECT ps.`pro_id`, ps.`pro_name`, pf.`pro_mark` FROM `product_sake` ps LEFT JOIN `product_format` pf ON pf.format_id = ps.format_id;");
+                                $productRows = $pdo->query($sql)->fetchAll();
+
+
+                                foreach ($productRows as $r) :
+                                ?>
+                                    <option value="<?= $r['pro_name'] ?>" <?= $r['pro_name'] == $row['sub_products'] ? 'selected' : '' ?>><?= $r['pro_id'] ?>&nbsp &nbsp<?= $r['pro_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">

@@ -4,7 +4,7 @@ $title = '新增資料';
 $pageName = 'add';
 
 //如果未登入管理員帳號，會直接跳轉至別的頁面
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -28,7 +28,16 @@ if (! $_SESSION['admin']) {
                         </div>
                         <div class="mb-3">
                             <label for="sub_products" class="form-label">月配產品</label>
-                            <input type="text" class="form-control" id="sub_products" name="sub_products">
+                            <select name="sub_products" id="sub_products" class="form-select">
+                                <option value="0" selected>選擇商品</option>
+                                <?php
+                                $sql = sprintf("SELECT ps.`pro_id`, ps.`pro_name`, pf.`pro_mark` FROM `product_sake` ps LEFT JOIN `product_format` pf ON pf.format_id = ps.format_id;");
+                                $productRows = $pdo->query($sql)->fetchAll();
+                                foreach ($productRows as $r) :
+                                ?>
+                                    <option value="<?= $r['pro_name'] ?>"><?= $r['pro_id'] ?>&nbsp &nbsp<?= $r['pro_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -68,7 +77,7 @@ if (! $_SESSION['admin']) {
             isPass = false;
             sub_plan.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的方案名稱</div>';
         }
-        if (sub_products.value < 4) {
+        if (sub_products.value == '') {
             isPass = false;
             sub_products.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的產品名稱</div>';
         }
