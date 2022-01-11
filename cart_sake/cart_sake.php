@@ -25,7 +25,7 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 //如果未登入管理員帳號，會直接跳轉至別的頁面
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -46,8 +46,12 @@ if (! $_SESSION['admin']) {
     <nav>
         <ul class="pagination">
             <li class="page-item <?= 1 == $currentPage ? 'disabled' : '' ?>">
+                <a class="page-link  " href="?page=<?= "1" ?>">
+                    <i class="fas fa-angle-double-left"></i></a>
+            </li>
+            <li class="page-item <?= 1 == $currentPage ? 'disabled' : '' ?>">
                 <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                    <i class="fas fa-angle-left"></i>
                 </a>
             </li>
             <?php for ($i = ($currentPage - 2); $i <= ($currentPage + 2); $i++)
@@ -59,8 +63,11 @@ if (! $_SESSION['admin']) {
 
             <li class="page-item <?= $currentPage == $totalPages ? "disabled" : "" ?>">
                 <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                    <i class="fas fa-angle-right"></i>
                 </a>
+            </li>
+            <li class="page-item <?= $totalPages == $currentPage ? 'disabled' : '' ?>">
+                <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fas fa-angle-double-right"></i></a>
             </li>
         </ul>
     </nav>
@@ -168,7 +175,7 @@ if (! $_SESSION['admin']) {
         document.querySelector('#modal_btn').setAttribute("onclick", "return false;");
         modal.show();
         document.querySelector('#modal_btn').addEventListener('click', function() {
-            location.href = `cart_sake-delete-api.php?cart_sake_id=${checkedID}`; 
+            location.href = `cart_sake-delete-api.php?cart_sake_id=${checkedID}`;
         });
     }
 </script>
