@@ -30,8 +30,7 @@ $rows = $pdo->query($sql)->fetchAll();
 <?php include __DIR__ . '\..\parts\__sidebar.html'?>
 <?php include __DIR__ . '\..\parts\__main_start.html'?>
 
-    <div class="d-flex justify-content-between mt-5">
-        <button type="button" class="btn btn-secondary btn-sm">刪除選擇項目</button>
+    <div class="d-flex justify-content-end mt-5">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
