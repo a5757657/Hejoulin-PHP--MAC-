@@ -92,25 +92,25 @@ $rows = $pdo->query($sql)->fetchAll();
 
             <!-- 設定頁數的顯示 -->
             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                <a class="page-link  " href="?page=<?= "1" ?>">
+                <a class="page-link  " href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&page=<?= "1" ?>">
                     <i class="fas fa-angle-double-left"></i></a>
             </li>
             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a>
+                <a class="page-link" href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&page=<?= $page - 1 ?>"><i class="fas fa-angle-left"></i></a>
             </li>
             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
                 <?php if ($i > ($page - 3) && $i < ($page + 3)) : ?>
 
                     <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        <a class="page-link" href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&page=<?= $i ?>"><?= $i ?></a>
                     </li>
                 <?php endif ?>
             <?php endfor ?>
             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-angle-right"></i></a>
+                <a class="page-link" href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&page=<?= $page + 1 ?>"><i class="fas fa-angle-right"></i></a>
             </li>
             <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fas fa-angle-double-right"></i></a>
+                <a class="page-link" href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&page=<?= $totalPages ?>"><i class="fas fa-angle-double-right"></i></a>
             </li>
         </ul>
     </nav>
