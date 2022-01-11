@@ -213,7 +213,7 @@ if (!$_SESSION['admin']) {
             isPass = false;
             member.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請選擇會員</div>';
         }
-        if (product.value == '' || product.value < 4) {
+        if (product.value == '') {
             isPass = false;
             product.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請選擇商品</div>';
         }

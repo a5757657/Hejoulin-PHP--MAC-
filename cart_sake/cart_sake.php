@@ -87,7 +87,7 @@ if (!$_SESSION['admin']) {
                 <th>會員編號</th>
                 <th>會員姓名</th>
                 <th>商品編號</th>
-                <th>商品名稱</th>
+                <th class="col-3">商品名稱</th>
                 <th>數量</th>
                 <th>購物車酒標編號</th>
                 <th>酒標編號</th>

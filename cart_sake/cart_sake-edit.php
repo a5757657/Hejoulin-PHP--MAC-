@@ -4,7 +4,7 @@ $title = 'Edit Data';
 $pageName = 'edit';
 
 //如果未登入管理員帳號，會直接跳轉至別的頁面
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -303,7 +303,7 @@ if (empty($rowSingle)) {
             isPass = false;
             member.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請選擇會員</div>';
         }
-        if (product.value == '' || product.value < 4) {
+        if (product.value == '') {
             isPass = false;
             product.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請選擇商品</div>';
         }
