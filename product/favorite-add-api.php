@@ -18,7 +18,7 @@ $member_id = $_POST['member_id'];
 $check = $pdo->query("SELECT * FROM `favorite` WHERE `member_id` = $member_id AND `pro_id` = $pro_id;")->fetchAll();
 
 if ($check) { //確認是否重複
-    $output['error'] = '商品已收藏';
+    $output['error'] = '重複的商品';
 } else {
 
     $insert = "INSERT INTO `favorite`(

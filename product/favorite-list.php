@@ -64,7 +64,7 @@ $pro = $pdo->query($product)->fetchAll();
             </div>
             <div class="">
                 <button type="button" class="btn btn-secondary btn-sm del">刪除收藏商品</button>
-                <a href="javascript: history.go(-1)"><button type="button" class="btn btn-secondary btn-sm">返回</button></a>
+                <a href="favorite-member.php"><button type="button" class="btn btn-secondary btn-sm">返回</button></a>
             </div>
         </div>
 
