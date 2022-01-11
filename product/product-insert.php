@@ -257,7 +257,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">商品資料修改</h5>
+                <h5 class="modal-title" id="exampleModalLabel">新增商品</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="alertModal"></div>
