@@ -113,7 +113,6 @@ if (empty($row)) {
                         document.querySelector('.modal-body').innerHTML = "資料修改成功";
                         document.querySelector('.modal-footer').innerHTML = `<a href="guide_question.php" class="btn btn-secondary">完成</a>`;
                         modal.show();
-                        alert('修改成功');
                     } else {
                         document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
                         modal.show();
