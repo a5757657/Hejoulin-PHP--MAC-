@@ -17,7 +17,6 @@ if(empty($row)){
 <?php include __DIR__ . '\..\parts\__navbar.php' ?>
 <?php include __DIR__ . '\..\parts\__sidebar.html' ?>
 <?php include __DIR__ . '\..\parts\__main_start.html' ?>
-
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-10">
@@ -29,19 +28,22 @@ if(empty($row)){
 
                             <div class="mb-3">
                                 <label for="discount_id" class="form-label">折扣碼ID</label>
-                                <input type="text" class="form-control" id="discount_id" name="discountID" value="<?=$row['discount_id']?>" >
+                                <input type="text" class="form-control" id="discount_id" name="discountID"
+                                       value="<?=$row['discount_id']?>" >
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="discount_code" class="form-label">折扣碼</label>
-                                <input type="text" class="form-control" id="discount_code" name="discountCode" value="<?=$row['discount_code']?>" required>
+                                <input type="text" class="form-control" id="discount_code" name="discountCode"
+                                       value="<?=$row['discount_code']?>" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="perscent" class="form-label">折扣值</label>
-                                <input type="number" min="0.00" max="500.00" step="0.01" class="form-control" id="perscent" name="perscent"  value="<?=$row['perscent']?>" >
+                                <input type="number" min="0.00" max="100.00" step="0.01" class="form-control"
+                                       id="perscent" name="perscent"  value="<?=$row['perscent']?>" >
                                 <div class="form-text"></div>
                             </div>
 
@@ -54,12 +56,13 @@ if(empty($row)){
                             <div class="mb-3">
                                 <label for="discount_time_start" class="form-label">折扣開始時間</label>
                                 <input type="date" class="form-control" id="discount_tstart" name="discountTstart"
-                                       data-pattern="09\d{2}-?\d{3}-?\d{3}"  value="<?=$row['discount_time_start']?>" required>
+                                       value="<?=$row['discount_time_start']?>" required>
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="discount_time_end" class="form-label">折扣到期時間</label>
-                                <input type="date" class="form-control" id="discount_tend" name="discountTend" value="<?=$row['discount_time_end']?>" required>
+                                <input type="date" class="form-control" id="discount_tend" name="discountTend"
+                                       value="<?=$row['discount_time_end']?>" required>
                                 <div class="form-text"></div>
                             </div>
 
@@ -83,11 +86,11 @@ if(empty($row)){
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">修改</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -97,7 +100,6 @@ if(empty($row)){
     </div>
 
 <?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal.html' ?>
 <?php include __DIR__ . '\..\parts\__script.html' ?>
     <!-- 如果要 modal 的話留下面的 script -->
     <script>
@@ -111,6 +113,7 @@ if(empty($row)){
         const active = document.querySelector('#active');
 
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+        const modalBody = document.querySelector('.modal-body');
 
 
         function sendData() {
@@ -144,8 +147,10 @@ if(empty($row)){
                     .then(obj => {
                         console.log(obj);
                         if (obj.success) {
-                            alert('修改成功');
-                            history.go(-1);
+                            modalBody.innerHTML = `修改成功`;
+                            document.querySelector('.modal-footer').innerHTML =
+                                `<a href="discount_list.php" class="btn btn-secondary">完成</a>`;
+                            modal.show();
                         } else {
                             document.querySelector('.modal-body').innerHTML = obj.error || '資料修改發生錯誤';
                             modal.show();
@@ -156,5 +161,6 @@ if(empty($row)){
         }
 
     </script>
+
 
 <?php include __DIR__ . '\..\parts\__foot.html' ?>

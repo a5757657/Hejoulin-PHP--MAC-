@@ -1,9 +1,10 @@
 <?php
 require __DIR__ . '\..\parts\__connect_db.php';
 
+
 // 如果未登入管理帳號就轉向
 if (! $_SESSION['admin']) {
-    header("Location: " . "../login/login.php");
+    header("Location: " . "./../login/login.php");
     exit;
 }
 
@@ -90,26 +91,26 @@ $rows = $pdo->query($sql)->fetchAll();
             <tbody>
             <?php foreach ($rows
 
-            as $r): ?>
-            <tr>
-            <td>
-                <input class="del" type="checkbox" name="check">
-            </td>
-            <td>
-                <a href="javascript: delete_it(<?= $r['mark_id'] ?>)">
-                    <i class="fas fa-trash-alt text-center"></i>
-                </a>
-            </td>
-            <td><?= $r['mark_id'] ?></td>
-            <td><?= $r['member_id'] ?></td>
-            <td><?= $r['pics'] ?></td>
-            <td><?= $r['create_at'] ?></td>
-            <td>
-                <a href="mark_edit.php?mark_id=<?= $r['mark_id'] ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            </tr>
+                           as $r): ?>
+                <tr>
+                    <td>
+                        <input class="del" type="checkbox" name="check">
+                    </td>
+                    <td>
+                        <a href="javascript: delete_it(<?= $r['mark_id'] ?>)">
+                            <i class="fas fa-trash-alt text-center"></i>
+                        </a>
+                    </td>
+                    <td><?= $r['mark_id'] ?></td>
+                    <td><?= $r['member_id'] ?></td>
+                    <td><?= $r['pics'] ?></td>
+                    <td><?= $r['create_at'] ?></td>
+                    <td>
+                        <a href="mark_edit.php?mark_id=<?= $r['mark_id'] ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
@@ -124,7 +125,7 @@ $rows = $pdo->query($sql)->fetchAll();
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>

@@ -14,8 +14,8 @@ if(empty($dID)){
     echo json_encode($output, JSON_UNESCAPED_UNICODE); exit;
 }
 $dCode = $_POST['discountCode'] ?? '';
-$perscent = $_POST['perscent'] ?? '';
 $dInfo = $_POST['discountInfo'] ?? '';
+$perscent = $_POST['perscent'] ?? '';
 $dTs = $_POST['discountTstart'] ?? '';
 $dTe = $_POST['discountTend'] ?? '';
 $active = $_POST['active'] ?? '';
@@ -34,8 +34,8 @@ $active = $_POST['active'] ?? '';
 //}
 $sql = "UPDATE `discount` SET
                      `discount_code`=?,
-                     `perscent`=?,
                      `discount_info`=?,
+                     `perscent`=?,
                      `discount_time_start`=?,
                      `discount_time_end`=?,
                      `active`=?
@@ -44,8 +44,8 @@ $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     $dCode,
-    $perscent,
     $dInfo,
+    $perscent,
     $dTs,
     $dTe,
     $active,

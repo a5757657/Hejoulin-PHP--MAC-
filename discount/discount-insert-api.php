@@ -9,8 +9,8 @@ $output = [
 ];
 $dID = $_POST['discountID'] ?? '';
 $dCode = $_POST['discountCode'] ?? '';
-$perscent = $_POST['perscent'] ?? '';
 $dInfo = $_POST['discountInfo'] ?? '';
+$perscent = $_POST['perscent'] ?? '';
 $dTs = $_POST['discountTstart'] ?? '';
 $dTe = $_POST['discountTend'] ?? '';
 $active = $_POST['active'] ?? '';
@@ -28,7 +28,7 @@ $active = $_POST['active'] ?? '';
 //    exit;
 //}
 $sql = "INSERT INTO `discount`(
-                            `discount_id`,
+                     `discount_id`,
                      `discount_code`,
                      `discount_info`,
                      `perscent`,
@@ -43,8 +43,8 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([
     $dID,
     $dCode,
-    $perscent,
     $dInfo,
+    $perscent,
     $dTs,
     $dTe,
     $active,

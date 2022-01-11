@@ -25,45 +25,46 @@ $pageName = 'discount_insert';
 
                             <div class="mb-3">
                                 <label for="discount_id" class="form-label">折扣碼ID</label>
-                                <input type="text" class="form-control" id="discount_id" name="discountID" >
+                                <input type="text" class="form-control" id="discount_id" name="discountID" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="discount_code" class="form-label">折扣碼</label>
-                                <input type="text" class="form-control" id="discount_code" name="discountCode" >
+                                <input type="text" class="form-control" id="discount_code" name="discountCode" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="perscent" class="form-label">折扣值</label>
-                                <input type="number" min="0.00" max="500.00" step="0.01" class="form-control" id="perscent" name="perscent" >
+                                <input type="number" min="0.00" max="500.00" step="0.01" class="form-control"
+                                       id="perscent" name="perscent" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="discount_info" class="form-label">折扣詳情</label>
-                                <input type="text" class="form-control" id="discount_info" name="discountInfo">
+                                <input type="text" class="form-control" id="discount_info" name="discountInfo" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="discount_time_start" class="form-label">折扣開始時間</label>
-                                <input type="date" class="form-control" id="discount_tstart" name="discountTstart"
-                                       data-pattern="09\d{2}-?\d{3}-?\d{3}" >
+                                <input type="date" class="form-control" id="discount_tstart"
+                                       name="discountTstart" required >
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="discount_time_end" class="form-label">折扣到期時間</label>
-                                <input type="date" class="form-control" id="discount_tend" name="discountTend" >
+                                <input type="date" class="form-control" id="discount_tend"
+                                       name="discountTend" required>
                                 <div class="form-text"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="active" class="form-label">折扣是否開啟</label>
-                                <input type="text" class="form-control" id="active" name="active" >
-
+                                <input type="text" class="form-control" id="active" name="active" required>
                                 <div class="form-text"></div>
                             </div>
 
@@ -80,11 +81,10 @@ $pageName = 'discount_insert';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">新增</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -100,22 +100,23 @@ $pageName = 'discount_insert';
     <script>
 
         const dID = document.querySelector('#discount_id');
-        const perscent = document.querySelector('#perscent');
         const dCode = document.querySelector('#discount_code');
         const dInfo = document.querySelector('#discount_info');
+        const perscent = document.querySelector('#perscent');
         const dTs = document.querySelector('#discount_tstart');
         const dTe = document.querySelector('#discount_tend');
         const active = document.querySelector('#active');
 
 
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+        const modalBody = document.querySelector('.modal-body');
 
 
         function sendData() {
             dID.nextElementSibling.innerHTML = '';
-            perscent.nextElementSibling.innerHTML = '';
             dCode.nextElementSibling.innerHTML = '';
             dInfo.nextElementSibling.innerHTML = '';
+            perscent.nextElementSibling.innerHTML = '';
             dTs.nextElementSibling.innerHTML = '';
             dTe.nextElementSibling.innerHTML = '';
             active.nextElementSibling.innerHTML = '';
@@ -143,8 +144,10 @@ $pageName = 'discount_insert';
                     .then(obj => {
                         console.log(obj);
                         if (obj.success) {
-                            alert('新增成功');
-                            location.href = 'discount-list .php';
+                            modalBody.innerHTML = `新增成功`;
+                            document.querySelector('.modal-footer').innerHTML =
+                                `<a href="discount_list.php" class="btn btn-secondary">完成</a>`;
+                            modal.show();
                         } else {
                             document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
                             modal.show();

@@ -43,21 +43,18 @@ $pageName = 'user_insert';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">資料新增</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
     </div>
 
 <?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal.html' ?>
 <?php include __DIR__ . '\..\parts\__script.html' ?>
 
     <script>
@@ -65,6 +62,7 @@ $pageName = 'user_insert';
         const uPass = document.querySelector('#password');
 
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+        const modalBody = document.querySelector('.modal-body');
 
         function sendData() {
             uAccount.nextElementSibling.innerHTML = '';
@@ -96,8 +94,9 @@ $pageName = 'user_insert';
                     .then(obj => {
                         console.log(obj);
                         if (obj.success) {
-                            alert('新增成功');
-                            location.href = 'user_list.php';
+                            modalBody.innerHTML = `新增成功`;
+                            document.querySelector('.modal-footer').innerHTML = `<a href="user_list.php" class="btn btn-secondary">完成</a>`;
+                            modal.show();
                         } else {
                             document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
                             modal.show();

@@ -3,7 +3,7 @@ require __DIR__ . '\..\parts\__connect_db.php';
 
 // 如果未登入管理帳號就轉向
 if (! $_SESSION['admin']) {
-    header("Location: " . "../login/login.php");
+    header("Location: " . "./../login/login.php");
     exit;
 }
 
@@ -116,7 +116,7 @@ $rows = $pdo->query($sql)->fetchAll();
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">訊息</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">...</div>

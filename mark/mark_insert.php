@@ -52,11 +52,11 @@ $pageName = 'mark_insert';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">資料錯誤</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">新增</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -66,7 +66,6 @@ $pageName = 'mark_insert';
     </div>
 
 <?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal.html' ?>
 <?php include __DIR__ . '\..\parts\__script.html' ?>
 
     <script>
@@ -74,6 +73,7 @@ $pageName = 'mark_insert';
         const pics = document.querySelector('#pics');
 
         const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+        const modalBody = document.querySelector('.modal-body');
 
         function sendData() {
             mID.nextElementSibling.innerHTML = '';
@@ -104,8 +104,10 @@ $pageName = 'mark_insert';
                     .then(obj => {
                         console.log(obj);
                         if (obj.success) {
-                            alert('新增成功');
-                            location.href = 'mark_list.php';
+                            modalBody.innerHTML = `新增成功`;
+                            document.querySelector('.modal-footer').innerHTML =
+                                `<a href="mark_list.php" class="btn btn-secondary">完成</a>`;
+                            modal.show();
                         } else {
                             document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
                             modal.show();
