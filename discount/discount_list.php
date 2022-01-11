@@ -77,47 +77,49 @@ $rows = $pdo->query($sql)->fetchAll();
                     <input class="form-check-input" type="checkbox"  id="allCk" onclick="cAll()"/>
                 </th>
 
-                <th scope="col">刪除</th>
+                <th style="flex: 0 0 auto; text-align: center">
+                    刪除
+                </th>
                 <th>折扣碼ID</th>
-                <th>折扣碼</th>
-                <th>折扣詳情</th>
+                <th style="text-align: center">折扣碼</th>
+                <th style="text-align: center">折扣詳情</th>
                 <th>折扣數值</th>
-                <th>折扣開始時間</th>
-                <th>折扣到期時間</th>
+                <th style="text-align: center">折扣開始時間</th>
+                <th style="text-align: center">折扣到期時間</th>
                 <th>折扣是否開啟</th>
-                <th>折扣建立時間</th>
-                <th>折扣修改時間</th>
+                <th style="text-align: center">折扣建立時間</th>
+                <th style="text-align: center">折扣修改時間</th>
                 <th>
-                    <a href="#"><i class="fas fa-pen"></i></a>
+                    編輯
                 </th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($rows as $r): ?>
-            <tr>
-            <td>
-                <input class="del" type="checkbox" name="check">
-            </td>
-            <td>
-                <a href="javascript: delete_it(<?= $r['discount_id'] ?>)">
-                    <i class="fas fa-trash-alt text-center"></i>
-                </a>
-            </td>
-            <td><?= $r['discount_id'] ?></td>
-            <td><?= $r['discount_code'] ?></td>
-            <td><?= $r['discount_info'] ?></td>
-            <td><?= $r['perscent'] ?></td>
-            <td><?= $r['discount_time_start'] ?></td>
-            <td><?= $r['discount_time_end'] ?></td>
-            <td><?= $r['active'] ?></td>
-            <td><?= $r['create_at'] ?></td>
-            <td><?= $r['modified_at'] ?></td>
-            <td>
-                <a href="discount_edit.php?discount_id=<?= $r['discount_id'] ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            </tr>
+                <tr>
+                    <td>
+                        <input class="del" type="checkbox" name="check">
+                    </td>
+                    <td style="text-align: center">
+                        <a href="javascript: delete_it(<?= $r['discount_id'] ?>)">
+                            <i class="fas fa-trash-alt text-center"></i>
+                        </a>
+                    </td>
+                    <td style="text-align: center"><?= $r['discount_id'] ?></td>
+                    <td><?= $r['discount_code'] ?></td>
+                    <td><?= $r['discount_info'] ?></td>
+                    <td style="text-align: center"><?= $r['perscent'] ?></td>
+                    <td><?= $r['discount_time_start'] ?></td>
+                    <td><?= $r['discount_time_end'] ?></td>
+                    <td style="text-align: center"><?= $r['active'] ?></td>
+                    <td><?= $r['create_at'] ?></td>
+                    <td><?= $r['modified_at'] ?></td>
+                    <td style="text-align: center">
+                        <a href="discount_edit.php?discount_id=<?= $r['discount_id'] ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
             </tbody>
         </table>

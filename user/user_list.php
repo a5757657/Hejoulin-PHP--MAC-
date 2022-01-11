@@ -77,39 +77,37 @@ $rows = $pdo->query($sql)->fetchAll();
                     <input class="form-check-input" type="checkbox" value="" id="allCk" onclick="cAll()"/>
                 </th>
 
-                <th scope="col">刪除</th>
-                <th>使用者ID</th>
-                <th>使用者帳號</th>
-                <th>使用者密碼</th>
-                <th>建立時間</th>
-                <th>
-                    <a href="#"><i class="fas fa-pen"></i></a>
+                <th scope="col" style="text-align: center">刪除</th>
+                <th style="text-align: center">使用者ID</th>
+                <th style="text-align: center">使用者帳號</th>
+                <th style="text-align: center">使用者密碼</th>
+                <th style="text-align: center">建立時間</th>
+                <th style="text-align: center">
+                    編輯
                 </th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($rows
-
-            as $r): ?>
-            <tr>
-            <td>
-                <input class="del" type="checkbox" name="check">
-            </td>
-            <td>
-                <a href="javascript: delete_it(<?= $r['user_id'] ?>)">
-                    <i class="fas fa-trash-alt text-center"></i>
-                </a>
-            </td>
-            <td><?= $r['user_id'] ?></td>
-            <td><?= $r['user_account'] ?></td>
-            <td><?= $r['user_pass'] ?></td>
-            <td><?= $r['user_time'] ?></td>
-            <td>
-                <a href="user_edit.php?user_id=<?= $r['user_id'] ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            </tr>
+            <?php foreach ($rows as $r): ?>
+                <tr>
+                    <td>
+                        <input class="del" type="checkbox" name="check">
+                    </td>
+                    <td style="text-align: center">
+                        <a href="javascript: delete_it(<?= $r['user_id'] ?>)">
+                            <i class="fas fa-trash-alt text-center"></i>
+                        </a>
+                    </td>
+                    <td style="text-align: center"><?= $r['user_id'] ?></td>
+                    <td style="text-align: center"><?= $r['user_account'] ?></td>
+                    <td style="text-align: center"><?= $r['user_pass'] ?></td>
+                    <td style="text-align: center"><?= $r['user_time'] ?></td>
+                    <td style="text-align: center">
+                        <a href="user_edit.php?user_id=<?= $r['user_id'] ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
