@@ -52,7 +52,7 @@ $pageName = 'member_insert';
 
                             <div class="mb-3">
                                 <label for="address" class="form-label">居住地址</label>
-                                <textarea class="form-label" name="address" id="address" cols="30"
+                                <textarea class="form-control" name="address" id="address" cols="30"
                                           rows="3" required></textarea>
                                 <div class="form-text"></div>
                             </div>
