@@ -7,12 +7,6 @@ $output = [
 ];
 
 $a_no = isset($_POST['a_no']) ? intval($_POST['a_no']) : 0;
-if(empty($a_no)){
-    $output['code'] = 400;
-    $output['error'] = '沒有 id';
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
-}
 
 $q_id = $_POST['q_id'] ?? '';
 $a_item = $_POST['a_item'] ?? '';

@@ -1,4 +1,4 @@
-<?php require __DIR__ . '.\..\parts\__connect_db.php';
+ <?php require __DIR__ . '.\..\parts\__connect_db.php';
 $title = "修改指南答案";
 $pageName = "guide_answer_edit";
 
@@ -6,11 +6,14 @@ if(! isset($_GET['a_no'])){
     header("Location: guide_answer.php");
     exit;
 }
-$sql = "SELECT * FROM guide_q ORDER BY q_cate";
-$rows= $pdo->query($sql)->fetchAll();
-
 $a_no = intval($_GET['a_no']);
-$row = $pdo->query("SELECT * FROM `guide_a` WHERE a_no=$a_no")->fetch();
+
+
+$sqlall = "SELECT * FROM `guide_q`";
+$rowall= $pdo->query($sqlall)->fetchAll();
+
+$sql = "SELECT * FROM `guide_a` WHERE a_no=$a_no";
+$row= $pdo->query($sql)->fetchAll();
 if(empty($row)){
     header('Location: guide_answer.php');
     exit;
@@ -30,18 +33,16 @@ if(empty($row)){
                 <div class="card-body">
                     <form name="form_a" onsubmit="sendData(); return false;" method="POST">
                     <div class="form-group mb-3">
-                            <label for="q_id" class="mb-2">對應問題id</label>
+                        <input type="hidden" name="a_no" value="" id="a_no">
+                            <label for="q_id" class="mb-2">對應問題</label>
                             <select class="form-control" aria-label="Default select example" id="q_id" name="q_id">
-                            <?php foreach ($rows as $r) : ?>
-                                    <option id="cate" value="<?= $r['q_id'] ?>"><?= $r['q_des'] ?></option>
-                            <?php endforeach ?>
                             </select>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="a_item" class="mb-2">答案選項</label>
-                            <input type="text" class="form-control" id="a_item" name="a_item" value="<?= $row['a_item'] ?>" />
+                            <input type="text" class="form-control" id="a_item" name="a_item" value="123" />
                             <div class="form-text"></div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -76,15 +77,34 @@ if(empty($row)){
 <script>
     const qId = document.querySelector('#q_id');
     const aItem = document.querySelector('#a_item');
+    const a_no = document.querySelector('#a_no');
 
     const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
     //  modal.show() 讓 modal 跳出
-    let q_id_c = document.querySelector('#q_id').childNodes;
-    q_id_c.forEach(el =>{
-        if(el.value == "<?= $r['q_id'] ?>"){
-            el.setAttribute('selected','selected');
+    // let q_id_c = document.querySelector('#q_id').childNodes;
+    // q_id_c.forEach(el =>{
+        // if(el.value == ""){
+    //         el.setAttribute('selected','selected');
+    //     }
+    // });
+
+    const qallData = <?= json_encode($rowall) ?>;
+    const qData = <?= json_encode($row) ?>;
+
+    qallData.forEach(item => {
+        qId.innerHTML += `<option value="${item.q_des}">${item.q_des}</option>`;
+    })
+
+
+    qallData.forEach(item => {
+        if (qData[0].q_id == item.q_id) {
+            qId.value = item.q_des
         }
-    });
+    })
+    
+    a_item.value = qData[0].a_item;
+
+    a_no.value = qData[0].a_no;
 
     function sendData(){
         qId.nextElementSibling.innerHTML = '';
