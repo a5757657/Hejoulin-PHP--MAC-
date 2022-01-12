@@ -26,7 +26,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 <!-- edit -->
 <style>
     #myimg {
-        height: 200px;
+        height: 400px;
         text-align: center;
         filter: drop-shadow(0px 5px 6px rgba(50, 50, 50, .5));
     }
