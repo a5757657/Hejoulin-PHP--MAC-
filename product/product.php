@@ -36,14 +36,11 @@ if ($page < 1) {
     exit;
 }
 
-//判斷排序條件
-
 //設定每一頁出現幾筆資料
 $sql = sprintf("SELECT * , pf.* FROM `product_sake` ps JOIN `product_format` pf on ps.format_id = pf.format_id ORDER BY $sort_by $order_by LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-
+//把抓到的資料放進變數裡
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-
 
 <?php include __DIR__ . '/../parts/__head.php' ?>
 <?php include __DIR__ . '/../parts/__navbar.php' ?>
@@ -90,7 +87,7 @@ $rows = $pdo->query($sql)->fetchAll();
     <nav aria-label="Page navigation example">
         <ul class="pagination">
 
-            <!-- 設定頁數的顯示 -->
+            <!-- 設定頁數的顯示 sort_by order_by limit 這幾個是為了上再換頁時都能抓到排序條件的資料-->
             <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                 <a class="page-link  " href="?sort_by=<?= $sort_by ?>&order_by=<?= $order_by ?>&limit=<?= $perPage ?>&page=<?= "1" ?>">
                     <i class="fas fa-angle-double-left"></i></a>
@@ -196,7 +193,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <td class="col-2"><?= htmlentities($r['pro_taste']) ?></td>
                     <td class="col-2"><?= htmlentities($r['pro_temp']) ?></td>
                     <td class="col-1"><?= $gift['gift_name'] ?></td>
-                    <td class="col-1"><?= $r['pro_mark'] ? '可' : '否'; ?></td>
+                    <td class="col-1"><?= $r['pro_mark'] ? '可' : '否'; ?></td> <!-- 布林值判斷顯示的文字 -->
                     <td class="col-1"><?= $ctr['container_name'] ?></td>
                     <td class="col-1">
                         <a href="product-edit.php?pro_id=<?= $r['pro_id'] ?>"><i class="fas fa-pen"></i></a>

@@ -2,7 +2,7 @@
 <?php
 
 // 如果未登入管理帳號就轉向
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
@@ -40,6 +40,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
         color: #666;
     }
 
+    /* 口味描述與溫度的按鈕手勢 */
     .fla,
     .tem {
         cursor: pointer;
@@ -52,7 +53,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                 <h5 class="card-header py-3">新增商品資料</h5>
                 <div class="card-body">
                     <form class="row" name="form1" onsubmit="sendData(); return false;">
-
+                        <!-- 用fetch傳資料所以設定return false2 -->
                         <div class="img-div">
                             <img src="" id="myimg" />
                         </div>
@@ -212,6 +213,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                         </div>
                         <div class="form-group mb-3 col-4">
                             <label class="mb-2" for="pro_gift">禮盒</label>
+                            <!-- 這裡直接抓禮盒資料表的資料呈現 -->
                             <select class="form-control" id="pro_gift" name="pro_gift">
                                 <option value="">**選擇禮盒**</option>
                                 <?php foreach ($pro_marks as $pm) : ?>
@@ -232,7 +234,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                             <label class="mb-2" for="container_id">酒器</label>
                             <select class="form-control" id="container_id" name="container_id">
                                 <option value="">**選擇酒器**</option>
-
+                                <!-- 這裡直接抓酒器資料表的資料呈現 -->
                                 <?php foreach ($pro_cons as $pc) : ?>
                                     <option value="<?= $pc['container_id'] ?>"><?= $pc['container_name'] ?></option>
                                 <?php endforeach ?>
@@ -268,10 +270,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
     </div>
 </div>
 
-
 <?php include __DIR__ . '/../parts/__main_end.html' ?>
-
-
 <?php include __DIR__ . '/../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
@@ -281,7 +280,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
     //預覽圖片
     const pro_img = document.querySelector('#pro_img') //上傳圖片按鈕
 
-    //預覽圖片
+    //預覽圖片的函示
     pro_img.addEventListener('change', doPreview);
 
     function doPreview() {
@@ -311,6 +310,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             });
     }
 
+    //設定變數
     let pro_name = document.querySelector('#pro_name');
     let pro_stock = document.querySelector('#pro_stock');
     let pro_selling = document.querySelector('#pro_selling');
@@ -351,6 +351,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 
     //口味按鈕
     fla1.addEventListener('click', function() {
+        //輸入框內的文字沒有彼此才能輸入進去
         if (pro_taste.value.indexOf('偏酸') == '-1' && pro_taste.value.indexOf('偏甜') == '-1') {
             pro_taste.value += '偏酸';
         }
@@ -392,6 +393,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 
     //飲用溫度
     tem1.addEventListener('click', function() {
+        //輸入框內的文字沒有彼此才能輸入進去
         if (pro_temp.value.indexOf('冷酒') == '-1') {
             pro_temp.value += '冷酒'
         }
@@ -428,8 +430,6 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
         let isPass = true;
 
         warning.innerHTML = ' ';
-
-
 
         //商品名稱
         if (!pro_img.value) {
@@ -481,7 +481,6 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
         }
 
         //價格
-
         if (isNaN(parseInt(pro_price.value))) {
             isPass = false;
             console.log(parseInt(pro_price.value));
@@ -495,7 +494,6 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 
 
         //容量
-
         if (isNaN(parseInt(pro_capacity.value))) {
             isPass = false;
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">容量欄位請輸入數字</div>`;
@@ -596,6 +594,8 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             isPass = false;
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">請輸入溫度描述</div>`;
         }
+
+        //如果裡面是數字就擋住
         if (!isNaN(parseInt(pro_temp.value))) {
             isPass = false;
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">飲用溫度欄位請輸入中文</div>`;
@@ -637,6 +637,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">請選擇酒器</div>`;
         }
 
+        //如果選擇1+1跟沒有酒器的選項(NULL)就會被擋住
         if (container_id.value == 5 && pro_gift.value == 3) {
             isPass = false;
             warning.innerHTML = `<div class="alert alert-warning mt-2" role="alert">請選擇酒器</div>`;
@@ -652,6 +653,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                 }).then(r => r.json())
                 .then(obj => {
                     if (obj.success) {
+                        
                         document.querySelector('#alertModal').innerHTML = '新增成功';
                         modal.show();
 

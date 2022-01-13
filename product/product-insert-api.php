@@ -1,11 +1,12 @@
 <?php require __DIR__ . '/../parts/__connect_db.php';
 
 // 如果未登入管理帳號就轉向
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
 
+//除錯用的陣列
 $output = [
     'success' => false,
     'code' => 0,
@@ -18,8 +19,6 @@ $s_selling = $_POST['pro_selling'] ?? '';
 $s_intro = $_POST['pro_intro'] ?? '';
 $s_condition = $_POST['pro_condition'] ?? '';
 $pro_img = $_POST['pro_img'] ?? '';
-//$pro_img = 'M0032.png';
-
 
 $f_price = $_POST['pro_price'] ?? '';
 $f_capacity = $_POST['pro_capacity'] ?? '';
@@ -35,8 +34,6 @@ $f_temp = $_POST['pro_temp'] ?? '';
 $f_gift = $_POST['pro_gift'] ?? '';
 $f_mark = $_POST['pro_mark'] ?? '';
 $f_container_id = $_POST['container_id'] ?? '5';
-
-
 
 $sql1 = "INSERT INTO `product_format`(
                                         `pro_price`, 
@@ -74,15 +71,15 @@ $stmt1->execute([
     $f_container_id
 ]);
 
+//有欄位資料被改變就是true 反之為false 回傳錯誤訊息
 $output['success'] = $stmt1->rowCount() == 1;
 $output['rowCount'] = $stmt1->rowCount();
 
+//抓取'product_format'資料表最後一筆(上面上傳的)資料的'format_id'的資料
 $format_id = $pdo->query("SELECT `format_id` FROM `product_format` ORDER BY `format_id` DESC LIMIT 0 , 1;")->fetch();
 $format_id = $format_id['format_id'];
-//$stmt1->bindParam('format_id', $format_id, PDO::PARAM_INT);
-//$stmt1->bindColumn(1, $formar_id);
 
-
+//判斷上架時間 目前邏輯還是有很大的問題
 $date = date_create(); //現在時間
 
 $s_u_time;
@@ -103,8 +100,11 @@ if ($s_condition == '已下架') {
     $s_c_time = date_format($date, 'Y-m-d H:i:s');
 }
 
-$upload_folder = __DIR__ .'/../img/pro_img';
+//上傳圖片的部分
+//圖片傳送的路徑位置
+$upload_folder = __DIR__ . '/../img/pro_img';
 
+//確認圖片格式
 $exts = [
     'image/jpeg' => '.jpg',
     'image/png' => '.png',
@@ -117,13 +117,16 @@ if (!empty($_FILES['pro_img'])) {
 
     if (!empty($ext)) {
 
+        //下面是把檔名改為亂數
         //$filename = sha1($_FILES['pro_img']['name'] . rand()) . $ext;
-        $filename = $_FILES['pro_img']['name']. $ext;
+        //拿到上傳的檔案名稱加上附檔名
+        $filename = $_FILES['pro_img']['name'] . $ext;
         $output['ext'] = $ext;
         $target = $upload_folder . '/' . $filename;
 
         if (move_uploaded_file($_FILES['pro_img']['tmp_name'], $target)) {
-
+            
+            //成功將檔案上傳執行以下SQL
             $sql2 = "INSERT INTO `product_sake`(
                 `pro_name`, 
                 `pro_stock`, 
