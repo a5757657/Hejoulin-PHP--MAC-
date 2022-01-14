@@ -2,13 +2,14 @@
 <?php
 
 // 如果未登入管理帳號就轉向
-if (! $_SESSION['admin']) {
+if (!$_SESSION['admin']) {
     header("Location: " . "../login/login.php");
     exit;
 }
 
 $title = '商品列表 - 修改頁面';
 
+//拿到商品id
 if (!isset($_GET['pro_id'])) {
     header("Location: product.php");
     exit;
@@ -48,6 +49,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
         height: 400px;
         text-align: center;
         filter: drop-shadow(0px 5px 6px rgba(50, 50, 50, .5));
+        /** 有透明圖層用的陰影 */
     }
 
     .img_div {
@@ -70,6 +72,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             <div class="card">
                 <h5 class="card-header py-3">商品資料修改<br><small>商品表id:<?= $psake['pro_id'] ?>&nbsp&nbsp&nbsp&nbsp規格表id:<?= $pformat['format_id'] ?></small></h5>
                 <div class="card-body">
+                    <!-- 用fetch傳資料 所以設定return false -->
                     <form class="row" name="form1" onsubmit="sendData(); return false;">
 
                         <div class="img_div" id="img_div">
@@ -80,7 +83,6 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                         <div class="img_div d_none">
                             <img src="" id="myimg" />
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="pro_img" class="mb-2">商品圖片</label>
                             <input type="file" class="form-control" name="pro_img" id="pro_img" />
@@ -94,20 +96,14 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                             <label for="pro_stock" class="mb-2">庫存</label>
                             <input type="number" class="form-control" name="pro_stock" id="pro_stock" min="0" value="<?= $psake['pro_stock'] ?>" />
                         </div>
-
-
-
                         <div class="form-group mb-3 col-4">
                             <label for="pro_selling" class="mb-2">銷售量</label>
                             <input type="number" class="form-control" name="pro_selling" id="pro_selling" min="0" value="<?= $psake['pro_selling'] ?>" />
                         </div>
-
-
                         <div class="form-group mb-3">
                             <label class="mb-2" for="pro_intro">介紹</label>
                             <textarea class="form-control" name="pro_intro" id="pro_intro" rows="7"><?= $psake['pro_intro'] ?></textarea>
                         </div>
-
                         <div class="form-group mb-3 col-3">
                             <label class="mb-2" for="pro_condition">商品狀態</label>
                             <select class="form-control" id="pro_condition" name="pro_condition">
@@ -194,7 +190,6 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                             <label for="pro_brand" class="mb-2">品牌</label>
                             <input type="text" class="form-control" name="pro_brand" id="pro_brand" value="<?= $pformat['pro_brand'] ?>" />
                         </div>
-
                         <div class="form-group mb-3 col-3">
                             <label for="pro_essence" class="mb-2">精米步合<small> 50% -> 50</small></label>
                             <input type="number" class="form-control" name="pro_essence" id="pro_essence" min="1" max="100" value="<?= $pformat['pro_essence'] ?>" />
@@ -207,12 +202,10 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                             <label for="pro_marker" class="mb-2">酒造</label>
                             <input type="text" class="form-control" name="pro_marker" id="pro_marker" value="<?= $pformat['pro_marker'] ?>" />
                         </div>
-
                         <div class="form-group mb-3 col-3">
                             <label for="rice" class="mb-2">使用米</label>
                             <input type="text" class="form-control" name="rice" id="rice" value="<?= $pformat['rice'] ?>" />
                         </div>
-
                         <div class="form-group mb-3 col-3">
                             <label for="pro_taste" class="mb-2">口味<small>
                                     <span class="fla fla1">偏酸</span>
@@ -223,6 +216,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                                     <span class="fla fla6">適中</span>
                                     <span class="fla fla7">清空</span>
                                 </small></label>
+                                <!-- 以下input設定readonly只能看不能編輯 -->
                             <input type="text" class="form-control" name="pro_taste" id="pro_taste" value="<?= $pformat['pro_taste'] ?>" aria-label="readonly input example" readonly />
                         </div>
                         <div class="form-group mb-3 col-3">
@@ -238,6 +232,8 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                             <label class="mb-2" for="pro_gift">禮盒</label>
                             <select class="form-control" id="pro_gift" name="pro_gift">
                                 <option value="">**選擇禮盒**</option>
+
+                                <!-- 選單直接抓禮盒資料表的資料 -->
                                 <?php foreach ($pro_marks as $pm) : ?>
                                     <option value="<?= $pm['pro_gift'] ?>"><?= $pm['gift_name'] ?></option>
                                 <?php endforeach ?>
@@ -246,34 +242,37 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                         <div class="form-group mb-3 col-4">
                             <label class="mb-2" for="pro_mark">酒標客製化</label>
                             <select class="form-control" id="pro_mark" name="pro_mark">
+
+                                <!-- 這裡是布林值 -->
                                 <option value="">**選擇是否客製化**</option>
                                 <option value="1">可以客製化</option>
                                 <option value="0">不可客製化</option>
                             </select>
                         </div>
-
                         <div class="form-group mb-3 col-4">
                             <label class="mb-2" for="container_id">酒器</label>
                             <select class="form-control" id="container_id" name="container_id">
                                 <option value="">**選擇酒器**</option>
 
+                                <!-- 選單直接抓酒器料表的資料 -->
                                 <?php foreach ($pro_cons as $pc) : ?>
                                     <option value="<?= $pc['container_id'] ?>"><?= $pc['container_name'] ?></option>
                                 <?php endforeach ?>
-
                             </select>
                         </div>
+
                         <!--警警告文字 -->
                         <div class="form-group mb-3 warning"></div>
                         <div class="d-flex justify-content-around mb-3">
                             <a href="javascript: history.go(-1)" class="btn btn-secondary w-25">返回</a>
                             <button type="submit" class="btn btn-secondary w-25">修改</button>
                         </div>
+
+                        <!-- 這裡的資料是為了要傳入後端用的 設定隱藏不顯示於前端 -->
                         <input type="hidden" name="pro_id" value="<?= $psake['pro_id'] ?>">
                         <input type="hidden" name="format_id" value="<?= $pformat['format_id'] ?>">
                         <input type="hidden" name="pro_creat_time" value="<?= $psake['pro_creat_time'] ?>">
                         <input type="hidden" name="pro_unsell_time" value="<?= $psake['pro_unsell_time'] ?>">
-
                     </form>
                 </div>
             </div>
@@ -290,38 +289,34 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
             </div>
             <div class="modal-body" id="alertModal"></div>
             <div class="modal-footer">
+                <!-- 按下確認按鈕會跳轉回商品表 -->
                 <button id="comfirm" type="button" class="btn btn-secondary" data-bs-dismiss="modal">確認</button>
             </div>
         </div>
     </div>
 </div>
 
-
 <?php include __DIR__ . '/../parts/__main_end.html' ?>
-
 <?php include __DIR__ . '/../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
     //  modal.show() 讓 modal 跳出
+    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
 
     //預覽圖片
-
     const pro_img = document.querySelector('#pro_img'); //上傳圖片input
     const img_div = document.querySelector('#img_div');
-    const d_none = document.querySelector('.d_none');
+    const d_none = document.querySelector('.d_none'); //要預覽圖片的地方
 
-    pro_img.addEventListener('change', doPreview);
+    pro_img.addEventListener('change', doPreview); //有改變時執行以下函式
 
     function doPreview() {
-        img_div.innerHTML = '';
+        img_div.innerHTML = ''; //預覽圖片時讓原本顯示的圖片消失
         d_none.style.display = 'block';
         const [file] = pro_img.files
         if (file) {
-
             document.querySelector("#myimg").src = URL.createObjectURL(file);
         }
-
     }
 
     function doUpload() {
@@ -345,7 +340,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
     let pro_condition_c = document.querySelector('#pro_condition').childNodes; //選取下拉選單的子元素
     pro_condition_c.forEach(el => {
         if (el.value == "<?= $psake['pro_condition'] ?>") {
-            el.setAttribute('selected', 'selected');
+            el.setAttribute('selected', 'selected'); //若資料庫讀出的資料跟value一樣就顯示該資料
         }
     });
 
@@ -384,13 +379,11 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 
     //酒標客製化
     let container_id_c = document.querySelector('#container_id').childNodes; //選取下拉選單的子元素
-
     container_id_c.forEach(el => {
         if (el.value == "<?= $pformat['container_id'] ?>") {
             el.setAttribute('selected', 'selected');
         }
     });
-
 
     //let pro_img = document.querySelector('#pro_img');
     let pro_name = document.querySelector('#pro_name');
@@ -433,6 +426,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
 
     //口味按鈕
     fla1.addEventListener('click', function() {
+        //輸入框內沒有彼此才能輸入
         if (pro_taste.value.indexOf('偏酸') == '-1' && pro_taste.value.indexOf('偏甜') == '-1') {
             pro_taste.value += '偏酸';
         }
