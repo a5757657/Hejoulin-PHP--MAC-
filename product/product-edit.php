@@ -85,7 +85,7 @@ $pro_cons = $pdo->query($pro_con)->fetchAll();
                         </div>
                         <div class="form-group mb-3">
                             <label for="pro_img" class="mb-2">商品圖片</label>
-                            <input type="file" class="form-control" name="pro_img" id="pro_img" />
+                            <input type="file" class="form-control" name="pro_img" id="pro_img" accept=".jpg,.jpeg,.png,.gif"/>
 
                         </div>
                         <div class="form-group mb-3 col-4">

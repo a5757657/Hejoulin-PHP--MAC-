@@ -7,6 +7,7 @@ if (! $_SESSION['admin']) {
     exit;
 }
 
+//這邊可以直改為join兩張表一次刪除兩張表的資料
 if (isset($_GET['sid'])) {
     $sid = $_GET['sid'];
 

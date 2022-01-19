@@ -17,6 +17,7 @@ if (!isset($_GET['member_id']) || !isset($_GET['member_name'])) {
 $member_id = $_GET['member_id'];
 $member_name = $_GET['member_name'];
 
+//用收藏的表去抓商品表跟規格表
 $sql = "SELECT f.* , ps.* , pf.* FROM `favorite` f JOIN `product_sake` ps ON f.`pro_id` = ps.`pro_id` JOIN `product_format` pf ON ps.`format_id` = pf.`format_id` WHERE f.`member_id` = $member_id ;";
 $rows = $pdo->query($sql)->fetchAll();
 
@@ -28,10 +29,8 @@ $pro = $pdo->query($product)->fetchAll();
 <?php include __DIR__ . '/../parts/__head.php' ?>
 <?php include __DIR__ . '/../parts/__navbar.php' ?>
 <?php include __DIR__ . '/../parts/__sidebar.html' ?>
-
 <?php include __DIR__ . '/../parts/__main_start.html' ?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
-
 
 <style>
     img {
@@ -110,7 +109,7 @@ $pro = $pdo->query($product)->fetchAll();
         </div>
     </div>
  
-<!-- Modal -->
+<!-- Modal 這個是自定義的光箱 觸發點綁在新增商品的按鈕 -->
 <!-- 新增收藏商品 -->
 <div class="modal fade" id="add_pro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -125,6 +124,7 @@ $pro = $pdo->query($product)->fetchAll();
                         <select class="form-control" name="pro_id" id="select">
                             <option value="">**選擇商品**</option>
 
+                        <!-- 計算出此會員收藏商品的數量 -->
                             <?php foreach ($pro as $p) : ?>
                                 <option value="<?= $p['pro_id'] ?>"><?= $p['pro_name'] ?></option>
                             <?php endforeach; ?>
@@ -145,7 +145,7 @@ $pro = $pdo->query($product)->fetchAll();
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal 這是modal.show的光箱 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -197,6 +197,7 @@ $pro = $pdo->query($product)->fetchAll();
     let del = document.querySelector('.del');
 
 
+    //多筆、單筆刪除
     del.addEventListener('click', function() {
 
         let check = document.querySelectorAll('.check')

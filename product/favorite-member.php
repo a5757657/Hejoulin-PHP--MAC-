@@ -87,6 +87,7 @@ $rows = $pdo->query($sql)->fetchAll()
             </tr>
         </thead>
         <tbody>
+            <!-- 計算出此會員收藏商品的數量 -->
             <?php foreach ($rows as $r) :
                 $m_id = $r['member_id'];
                 $ct = "SELECT COUNT(1) FROM `favorite` f WHERE f.`member_id` = $m_id;";

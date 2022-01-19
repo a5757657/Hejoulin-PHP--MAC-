@@ -53,6 +53,7 @@ $f_container_id = $_POST['container_id'] ?? '';
 
 $upload_folder = __DIR__ . '/../img/pro_img';
 
+//後端確認檔案類型
 $exts = [
     'image/jpeg' => '.jpg',
     'image/png' => '.png',
@@ -179,6 +180,7 @@ $s_c_time;
 
 $date = date_create(); //現在時間
 
+//判定上下架的時間但是有很大的問題
 if ($condition !== $s_condition) {
 
     if ($s_condition == '已上架') {
