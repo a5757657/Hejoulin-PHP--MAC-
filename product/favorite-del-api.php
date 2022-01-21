@@ -12,6 +12,7 @@ $pro_id = $_GET['pro_id'];
 echo $member_id;
 echo $pro_id;
 
+//用memberid找出收藏表的所有商品在刪除
 if (isset($member_id) && isset($pro_id)) {
 
     $pdo->query("DELETE FROM `favorite` WHERE `member_id` = $member_id  AND `pro_id` IN ($pro_id);");
