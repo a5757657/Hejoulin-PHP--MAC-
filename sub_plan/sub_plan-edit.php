@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php' ?>
+<?php require __DIR__ . '/../parts/__connect_db.php' ?>
 <?php
 $title = 'Edit Data';
 $pageName = 'edit';
@@ -25,10 +25,10 @@ if (empty($row)) {
 }
 
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 
 <div class="container">
     <div class="row">
@@ -41,7 +41,8 @@ if (empty($row)) {
                         <div class="mb-3">
                             <!-- 把value先設成抓到的資料 -->
                             <label for="sub_plan" class="form-label">方案名稱</label>
-                            <input type="text" class="form-control" id="sub_plan" name="sub_plan" value="<?= htmlentities($row['sub_plan']) ?>">
+                            <input type="text" class="form-control" id="sub_plan" name="sub_plan"
+                                value="<?= htmlentities($row['sub_plan']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -55,14 +56,17 @@ if (empty($row)) {
 
                                 foreach ($productRows as $r) :
                                 ?>
-                                    <option value="<?= $r['pro_name'] ?>" <?= $r['pro_name'] == $row['sub_products'] ? 'selected' : '' ?>><?= $r['pro_id'] ?>&nbsp &nbsp<?= $r['pro_name'] ?></option>
+                                <option value="<?= $r['pro_name'] ?>"
+                                    <?= $r['pro_name'] == $row['sub_products'] ? 'selected' : '' ?>>
+                                    <?= $r['pro_id'] ?>&nbsp &nbsp<?= $r['pro_name'] ?></option>
                                 <?php endforeach ?>
                             </select>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="sub_price" class="form-label">方案價格</label>
-                            <input type="number" class="form-control" id="sub_price" name="sub_price" value="<?= $row['sub_price'] ?>">
+                            <input type="number" class="form-control" id="sub_price" name="sub_price"
+                                value="<?= $row['sub_price'] ?>">
                             <div class="form-text"></div>
                         </div>
                         <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
@@ -75,60 +79,60 @@ if (empty($row)) {
 </div>
 
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal_ash.html' ?>
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . '/../parts/__main_end.html' ?>
+<?php include __DIR__ . '/../parts/__modal_ash.html' ?>
+<?php include __DIR__ . '/../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
-    const sub_id = document.querySelector("#sub_id").value;
-    const sub_plan = document.querySelector("#sub_plan");
-    const sub_products = document.querySelector("#sub_products");
-    const sub_price = document.querySelector("#sub_price");
+const sub_id = document.querySelector("#sub_id").value;
+const sub_plan = document.querySelector("#sub_plan");
+const sub_products = document.querySelector("#sub_products");
+const sub_price = document.querySelector("#sub_price");
 
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-    //  modal.show() 讓 modal 跳出
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+//  modal.show() 讓 modal 跳出
 
-    function sendData() {
-        let isPass = true;
-        sub_plan.nextElementSibling.innerHTML = '';
-        sub_products.nextElementSibling.innerHTML = '';
-        sub_price.nextElementSibling.innerHTML = '';
+function sendData() {
+    let isPass = true;
+    sub_plan.nextElementSibling.innerHTML = '';
+    sub_products.nextElementSibling.innerHTML = '';
+    sub_price.nextElementSibling.innerHTML = '';
 
-        if (sub_plan.value < 2) {
-            isPass = false;
-            sub_plan.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期名稱</div>';
-        }
-        if (sub_products.value < 4) {
-            isPass = false;
-            sub_products.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期月數</div>';
-        }
-        if (sub_price.value < 0) {
-            isPass = false;
-            sub_price.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期折扣</div>';
-        }
-
-        if (isPass) {
-            const fd = new FormData(document.formInsert);
-            fetch('sub_plan-edit-api.php', {
-                    method: 'POST',
-                    body: fd,
-                }).then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if (obj.success) {
-                        document.querySelector('#exampleModalLabel').innerHTML = '修改成功';
-                        document.querySelector('.modal-body').innerHTML = `編號${sub_id}的資料被修改了`;
-                        document.querySelector('#modal_btn').setAttribute("onclick", "location.href='sub_plan.php'");
-                        modal.show();
-                        // location.href = 'sub_plan.php';
-                    } else {
-                        document.querySelector('#exampleModalLabel').innerHTML = '資料修改發生錯誤';
-                        document.querySelector('.modal-body').innerHTML = `編號${sub_id}的資料修改失敗 ${obj.error}`;
-                        document.querySelector('#modal_btn').setAttribute("onclick", "location.href='sub_plan.php'");
-                        modal.show();
-                    }
-                });
-        }
+    if (sub_plan.value < 2) {
+        isPass = false;
+        sub_plan.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期名稱</div>';
     }
+    if (sub_products.value < 4) {
+        isPass = false;
+        sub_products.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期月數</div>';
+    }
+    if (sub_price.value < 0) {
+        isPass = false;
+        sub_price.nextElementSibling.innerHTML = '<div class="alert alert-dark mt-2" role="alert">請輸入完整的週期折扣</div>';
+    }
+
+    if (isPass) {
+        const fd = new FormData(document.formInsert);
+        fetch('sub_plan-edit-api.php', {
+                method: 'POST',
+                body: fd,
+            }).then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (obj.success) {
+                    document.querySelector('#exampleModalLabel').innerHTML = '修改成功';
+                    document.querySelector('.modal-body').innerHTML = `編號${sub_id}的資料被修改了`;
+                    document.querySelector('#modal_btn').setAttribute("onclick", "location.href='sub_plan.php'");
+                    modal.show();
+                    // location.href = 'sub_plan.php';
+                } else {
+                    document.querySelector('#exampleModalLabel').innerHTML = '資料修改發生錯誤';
+                    document.querySelector('.modal-body').innerHTML = `編號${sub_id}的資料修改失敗 ${obj.error}`;
+                    document.querySelector('#modal_btn').setAttribute("onclick", "location.href='sub_plan.php'");
+                    modal.show();
+                }
+            });
+    }
+}
 </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>

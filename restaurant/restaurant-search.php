@@ -1,4 +1,4 @@
-<?php require __DIR__. '\..\parts\__connect_db.php';
+<?php require __DIR__. '/../parts/__connect_db.php';
 
 // 如果未登入管理帳號就轉向
 if (! $_SESSION['admin']) {
@@ -122,38 +122,41 @@ if(isset($_POST['export'])) {
 
 
 ?>
-<?php include __DIR__ . '\..\parts\__head.php'?>
+<?php include __DIR__ . '/../parts/__head.php'?>
 <style>
-    .image-container {
-      position: relative;
-    }
+.image-container {
+    position: relative;
+}
 
-    .image-container img {
-      width: 100%;
-      height: auto;
-    }
-    .filter:focus {
-      box-shadow: none !important;
-    }
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.filter:focus {
+    box-shadow: none !important;
+}
 </style>
-<?php include __DIR__ . '\..\parts\__navbar.php'?>
-<?php include __DIR__ . '\..\parts\__sidebar.html'?>
+<?php include __DIR__ . '/../parts/__navbar.php'?>
+<?php include __DIR__ . '/../parts/__sidebar.html'?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html'?>
+<?php include __DIR__ . '/../parts/__main_start.html'?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 <!-- table -->
 <div class="d-flex justify-content-between mt-5 align-items-center">
     <div class="d-flex gap-1">
         <button type="button" class="btn btn-secondary btn-sm" onclick="deleteMany()">刪除選擇項目</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='restaurant_add.php'">新增合作餐廳</button>
+        <button type="button" class="btn btn-secondary btn-sm"
+            onclick="location.href='restaurant_add.php'">新增合作餐廳</button>
         <div>
             <form method="post">
-            <input type="submit" class="btn btn-secondary btn-sm" name="export" value="輸出所有資料"></input>
+                <input type="submit" class="btn btn-secondary btn-sm" name="export" value="輸出所有資料"></input>
             </form>
         </div>
-        
+
         <div class="input-group input-group-sm" style="width: 200px">
-            <input id="search" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input id="search" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm">
             <button id="send" class="btn btn-secondary"><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -182,8 +185,8 @@ if(isset($_POST['export'])) {
                 ?>
                 page=<?= $page-1 ?>"><i class="fas fa-angle-left"></i></a>
             </li>
-            <?php for($i=1; $i<=$totalPages; $i++): ?>  
-              <li class="page-item <?= $page==$i? 'active' : ''?>"><a class="page-link" href="?<?php 
+            <?php for($i=1; $i<=$totalPages; $i++): ?>
+            <li class="page-item <?= $page==$i? 'active' : ''?>"><a class="page-link" href="?<?php 
                     if( isset($_GET['res_type']) && !isset($_GET['res_area']) ) {
                         echo 'res_type=' . $res_type . '&';
                     } else if( isset($_GET['res_area']) && !isset($_GET['res_type']) ) {
@@ -222,12 +225,12 @@ if(isset($_POST['export'])) {
     </nav>
 </div>
 <div class="table-responsive mt-3" style="overflow-x: scroll; height: 80vh;">
-<!-- table style 是為了讓表格的卷軸顯示在比較明顯的位置 -->
+    <!-- table style 是為了讓表格的卷軸顯示在比較明顯的位置 -->
     <table class="table table-striped table-sm">
         <thead>
             <tr class="d-flex">
                 <th>
-                    <input class="form-check-input" type="checkbox" value="" id="isAll"/>
+                    <input class="form-check-input" type="checkbox" value="" id="isAll" />
                 </th>
                 <th style="flex: 0 0 auto; width: 3%; text-align: center">
                     刪除
@@ -235,40 +238,42 @@ if(isset($_POST['export'])) {
                 <th>#</th>
                 <th class="col-1">
                     <div class="btn-group">
-                      <button class="btn btn-secondary btn-sm dropdown-toggle filter" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="
+                        <button class="btn btn-secondary btn-sm dropdown-toggle filter" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="
                         background-color: transparent;
                         color: #212529;
                         height: auto;
                         border: none;
                         font-weight: 600;
                         transform: translateY(-4px);">
-                        餐廳類型
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="restaurant.php">全部類型</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_type=Fine Dining">Fine Dining</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_type=Sake Bar">Sake Bar</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_type=居酒屋">居酒屋</a></li>
-                      </ul>
+                            餐廳類型
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="restaurant.php">全部類型</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_type=Fine Dining">Fine Dining</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_type=Sake Bar">Sake Bar</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_type=居酒屋">居酒屋</a></li>
+                        </ul>
                     </div>
                 </th>
                 <th class="col-1">
                     <div class="btn-group">
-                      <button class="btn btn-secondary btn-sm dropdown-toggle filter" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="
+                        <button class="btn btn-secondary btn-sm dropdown-toggle filter" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="
                         background-color: transparent;
                         color: #212529;
                         height: auto;
                         border: none;
                         font-weight: 600;
                         transform: translateY(-4px);">
-                        餐廳地區
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="restaurant.php">全部地區</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_area=北部">北部</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_area=中部">中部</a></li>
-                        <li><a class="dropdown-item" href="restaurant.php?res_area=南部">南部</a></li>
-                      </ul>
+                            餐廳地區
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="restaurant.php">全部地區</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_area=北部">北部</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_area=中部">中部</a></li>
+                            <li><a class="dropdown-item" href="restaurant.php?res_area=南部">南部</a></li>
+                        </ul>
                     </div>
                 </th>
                 <th class="col-1">餐廳名稱</th>
@@ -289,7 +294,7 @@ if(isset($_POST['export'])) {
             </tr>
         </thead>
         <tbody>
-        <?php foreach($rows as $r) { ?>
+            <?php foreach($rows as $r) { ?>
             <tr class="d-flex">
                 <td>
                     <input class="form-check-input check" type="checkbox" value="<?= $r['res_id']?>" />
@@ -307,30 +312,34 @@ if(isset($_POST['export'])) {
                 <td class="col-1" style="overflow-wrap: break-word;"><?= htmlentities($r['res_t_number']) ?></td>
                 <td class="col-1" style="overflow-wrap: break-word;">
                     <?php if (!empty(htmlentities($r['web_link']))) { ?>
-                        <a href="<?= htmlentities($r['web_link']) ?>" target="_blank" style="color: #999" onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
-                            <?= htmlentities($r['web_link']) ?>
-                        </a>
+                    <a href="<?= htmlentities($r['web_link']) ?>" target="_blank" style="color: #999"
+                        onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
+                        <?= htmlentities($r['web_link']) ?>
+                    </a>
                     <?php } ?>
                 </td>
                 <td class="col-1" style="overflow-wrap: break-word;">
                     <?php if (!empty(htmlentities($r['fb_link']))) { ?>
-                        <a href="<?= htmlentities($r['fb_link']) ?>" target="_blank" style="color: #999" onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
-                            <?= htmlentities($r['fb_link']) ?>
-                        </a>
+                    <a href="<?= htmlentities($r['fb_link']) ?>" target="_blank" style="color: #999"
+                        onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
+                        <?= htmlentities($r['fb_link']) ?>
+                    </a>
                     <?php } ?>
                 </td>
                 <td class="col-1" style="overflow-wrap: break-word;">
                     <?php if (!empty(htmlentities($r['ig_link']))) { ?>
-                        <a href="<?= htmlentities($r['ig_link']) ?>" target="_blank" style="color: #999" onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
-                            <?= htmlentities($r['ig_link']) ?>
-                        </a>
+                    <a href="<?= htmlentities($r['ig_link']) ?>" target="_blank" style="color: #999"
+                        onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
+                        <?= htmlentities($r['ig_link']) ?>
+                    </a>
                     <?php } ?>
                 </td>
                 <td class="col-1" style="overflow-wrap: break-word;">
                     <?php if (!empty(htmlentities($r['booking_link']))) { ?>
-                        <a href="<?= htmlentities($r['booking_link']) ?>" target="_blank" style="color: #999" onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
-                            <?= htmlentities($r['booking_link']) ?>
-                        </a>
+                    <a href="<?= htmlentities($r['booking_link']) ?>" target="_blank" style="color: #999"
+                        onMouseOver="this.style.color='#ccc'" onMouseOut="this.style.color='#999'">
+                        <?= htmlentities($r['booking_link']) ?>
+                    </a>
                     <?php } ?>
                 </td>
                 <td class="col-2" data-respic="<?= $r['res_id']?>"></td>
@@ -345,93 +354,96 @@ if(isset($_POST['export'])) {
     </table>
 </div>
 
-<?php include __DIR__ . '\..\parts\__main_end.html'?>
+<?php include __DIR__ . '/../parts/__main_end.html'?>
 
 <!-- 如果要 modal 的話留下面的結構 -->
-<?php include __DIR__ . '\..\parts\__modal.html'?>
+<?php include __DIR__ . '/../parts/__modal.html'?>
 
 
 
 <!-- imageModal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="image-container">
-            <img class="modal-img" src="">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="image-container">
+                    <img class="modal-img" src="">
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<?php include __DIR__ . '\..\parts\__script.html'?>
+<?php include __DIR__ . '/../parts/__script.html'?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-    const imageModal = new bootstrap.Modal(document.querySelector('#imageModal'));
-    const modalBody = document.querySelector('.modal-body');
-    const tds = document.querySelectorAll('td');
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+const imageModal = new bootstrap.Modal(document.querySelector('#imageModal'));
+const modalBody = document.querySelector('.modal-body');
+const tds = document.querySelectorAll('td');
 
-    const isAll = document.querySelector("#isAll");
-    const check = document.querySelectorAll(".check");
-    let v = false;
-    isAll.addEventListener("click", function() {
-        if (v == false) {
-            for (let i = 0; i<check.length; i++) {
-                check[i].checked = true
-            }
-            v = true
-        } else {
-            for (let i = 0; i<check.length; i++) {
-                check[i].checked = false
-            }
-            v = false
+const isAll = document.querySelector("#isAll");
+const check = document.querySelectorAll(".check");
+let v = false;
+isAll.addEventListener("click", function() {
+    if (v == false) {
+        for (let i = 0; i < check.length; i++) {
+            check[i].checked = true
         }
-    })
-
-    // 刪除資料
-    function delete_it(res_id){
-        modalBody.innerHTML = `確定要刪除編號為 ${res_id} 的資料嗎？`;
-        document.querySelector('.modal-footer').innerHTML = `<a href="delete-many.php?res_id=${res_id}" class="btn btn-secondary">刪除</a>`;
-        modal.show();
+        v = true
+    } else {
+        for (let i = 0; i < check.length; i++) {
+            check[i].checked = false
+        }
+        v = false
     }
-    function deleteMany(){
-        let checked = [];
-        let resId = [];
-        let newString = '';
-        for(let i = 0; i<check.length;i++) {
-        if(check[i].checked == true) {
+})
+
+// 刪除資料
+function delete_it(res_id) {
+    modalBody.innerHTML = `確定要刪除編號為 ${res_id} 的資料嗎？`;
+    document.querySelector('.modal-footer').innerHTML =
+        `<a href="delete-many.php?res_id=${res_id}" class="btn btn-secondary">刪除</a>`;
+    modal.show();
+}
+
+function deleteMany() {
+    let checked = [];
+    let resId = [];
+    let newString = '';
+    for (let i = 0; i < check.length; i++) {
+        if (check[i].checked == true) {
             checked.push(check[i]);
-          }
-        }
-        for (let i = 0; i<checked.length;i++) {
-            resId.push(checked[i].value);
-        }
-        newString = resId.join(",")
-        if(resId.length == 0) {
-            modalBody.innerHTML = `目前尚未選取項目。`;
-            document.querySelector('.modal-footer').innerHTML = `<button type="button" onclick="modal.hide()" class="btn btn-secondary">確認</button>`;
-            modal.show();
-        } else {
-            delete_it(newString)
         }
     }
+    for (let i = 0; i < checked.length; i++) {
+        resId.push(checked[i].value);
+    }
+    newString = resId.join(",")
+    if (resId.length == 0) {
+        modalBody.innerHTML = `目前尚未選取項目。`;
+        document.querySelector('.modal-footer').innerHTML =
+            `<button type="button" onclick="modal.hide()" class="btn btn-secondary">確認</button>`;
+        modal.show();
+    } else {
+        delete_it(newString)
+    }
+}
 
-    const all = <?= json_encode($all) ?>;  // 將資料庫資料送到前端
-    const allResPic = <?= json_encode($all_res_pic) ?>;  // 將餐廳圖片資料庫資料送到前端
-    const allMenuPic = <?= json_encode($all_menu_pic) ?>;  // 將餐廳圖片資料庫資料送到前端
-    const allSpMenu = <?= json_encode($all_sp_menu) ?>;  // 將餐廳圖片資料庫資料送到前端
+const all = <?= json_encode($all) ?>; // 將資料庫資料送到前端
+const allResPic = <?= json_encode($all_res_pic) ?>; // 將餐廳圖片資料庫資料送到前端
+const allMenuPic = <?= json_encode($all_menu_pic) ?>; // 將餐廳圖片資料庫資料送到前端
+const allSpMenu = <?= json_encode($all_sp_menu) ?>; // 將餐廳圖片資料庫資料送到前端
 
-    // render 營業時間
-    for (let i = 0; i< all.length; i++) {
-        tds.forEach(td => {
-            if(td.dataset.time == all[i].res_id) {
-                let parse = JSON.parse(all[i].res_ser_hours);
-                document.querySelector(`[data-time="${td.dataset.time}"]`).innerHTML = `
+// render 營業時間
+for (let i = 0; i < all.length; i++) {
+    tds.forEach(td => {
+        if (td.dataset.time == all[i].res_id) {
+            let parse = JSON.parse(all[i].res_ser_hours);
+            document.querySelector(`[data-time="${td.dataset.time}"]`).innerHTML = `
                 <select class="form-select form-select-sm" aria-label="Default select example">
                 <option value="1">星期一 ${parse[2]}</option>
                 <option value="2">星期二 ${parse[3]}</option>
@@ -442,42 +454,44 @@ if(isset($_POST['export'])) {
                 <option value="7">星期日 ${parse[1]}</option>
                 </select>
                 `
-            }
-        })
-    }
-    const options = document.querySelectorAll('option');
-    let today = new Date().getDay();
-    options.forEach(option=> {
-        if (option.value == today) { option.selected = true}   // 如果是今天，顯示今天的時間
+        }
     })
+}
+const options = document.querySelectorAll('option');
+let today = new Date().getDay();
+options.forEach(option => {
+    if (option.value == today) {
+        option.selected = true
+    } // 如果是今天，顯示今天的時間
+})
 
-    // render 餐廳圖片
-    for (let i = 0; i<allResPic.length; i++) {
-        tds.forEach(td => {
-            if(td.dataset.respic == allResPic[i].res_id) {
-                document.querySelector(`[data-respic="${td.dataset.respic}"]`).innerHTML += `
+// render 餐廳圖片
+for (let i = 0; i < allResPic.length; i++) {
+    tds.forEach(td => {
+        if (td.dataset.respic == allResPic[i].res_id) {
+            document.querySelector(`[data-respic="${td.dataset.respic}"]`).innerHTML += `
                 <img onclick="showImg(this)" style="cursor: zoom-in; width:100px; object-fit:cover; margin-bottom:.5rem" src="../img/res_pic/${allResPic[i].res_pic_name}">
                 `
-            }
-        })
-    }
+        }
+    })
+}
 
-    // render 菜單圖片
-    for (let i = 0; i<allMenuPic.length; i++) {
-        tds.forEach(td => {
-            if(td.dataset.menupic == allMenuPic[i].res_id) {
-                document.querySelector(`[data-menupic="${td.dataset.menupic}"]`).innerHTML += `
+// render 菜單圖片
+for (let i = 0; i < allMenuPic.length; i++) {
+    tds.forEach(td => {
+        if (td.dataset.menupic == allMenuPic[i].res_id) {
+            document.querySelector(`[data-menupic="${td.dataset.menupic}"]`).innerHTML += `
                 <img onclick="showImg(this)" style="cursor: zoom-in; width:100px; object-fit:cover; margin-bottom:.5rem" src="../img/menu_pic/${allMenuPic[i].menu_pic_name}">
                 `
-            }
-        })
-    }
+        }
+    })
+}
 
-    // render 特別菜單
-    for (let i = 0; i<allSpMenu.length; i++) {
-        tds.forEach(td => {
-            if(td.dataset.spmenu == allSpMenu[i].res_id) {
-                document.querySelector(`[data-spmenu="${td.dataset.spmenu}"]`).innerHTML += `
+// render 特別菜單
+for (let i = 0; i < allSpMenu.length; i++) {
+    tds.forEach(td => {
+        if (td.dataset.spmenu == allSpMenu[i].res_id) {
+            document.querySelector(`[data-spmenu="${td.dataset.spmenu}"]`).innerHTML += `
 
                 <div class="card" style="width: 10rem; margin-bottom:.5rem">
                   <img src="../img/sp_menu/${allSpMenu[i].sp_menu_pic_name}" class="card-img-top" onclick="showImg(this)" style="cursor: zoom-in;">
@@ -486,28 +500,27 @@ if(isset($_POST['export'])) {
                   </div>
                 </div>
                 `
-            }
-        })
-    }
-
-
-    // show img modal
-
-    function showImg(e) {
-        document.querySelector(".modal-img").setAttribute("src", e.src);
-        imageModal.show();
-    }
-
-    // const url = new URL(location.href);
-    // const param = new URLSearchParams(url.search);
-    // let page = param.get('page');   // 將 query string "page" 送到前端
-
-    // search
-    const send = document.querySelector("#send");
-    const search = document.querySelector("#search");
-    send.addEventListener("click", function() {
-        location.href = `restaurant-search.php?param=${search.value}`
+        }
     })
-    
+}
+
+
+// show img modal
+
+function showImg(e) {
+    document.querySelector(".modal-img").setAttribute("src", e.src);
+    imageModal.show();
+}
+
+// const url = new URL(location.href);
+// const param = new URLSearchParams(url.search);
+// let page = param.get('page');   // 將 query string "page" 送到前端
+
+// search
+const send = document.querySelector("#send");
+const search = document.querySelector("#search");
+send.addEventListener("click", function() {
+    location.href = `restaurant-search.php?param=${search.value}`
+})
 </script>
-<?php include __DIR__ . '\..\parts\__foot.html'?>
+<?php include __DIR__ . '/../parts/__foot.html'?>

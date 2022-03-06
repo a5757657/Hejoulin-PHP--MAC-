@@ -1,12 +1,12 @@
-<?php require __DIR__ . '.\..\parts\__connect_db.php';
+<?php require __DIR__ . './../parts/__connect_db.php';
 $title = '新增選酒指南問題';
 $pageName = 'guide_question_insert';
 ?>
-<?php include __DIR__ . '.\..\parts\__head.php' ?>
-<?php include __DIR__ . '.\..\parts\__navbar.php'?>
-<?php include __DIR__ . '.\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . './../parts/__head.php' ?>
+<?php include __DIR__ . './../parts/__navbar.php'?>
+<?php include __DIR__ . './../parts/__sidebar.html' ?>
 
-<?php include __DIR__ . '.\..\parts\__main_start.html' ?>
+<?php include __DIR__ . './../parts/__main_start.html' ?>
 
 <div class="mt-5">
     <div class="row justify-content-center">
@@ -28,7 +28,8 @@ $pageName = 'guide_question_insert';
                         </div>
                         <div class="form-group mb-3">
                             <label for="q_des" class="mb-2">問題</label>
-                            <textarea name="q_des" id="q_des" class="form-control" cols="30" rows="2" placeholder="您喜歡喝甚麼類型的酒？"></textarea>
+                            <textarea name="q_des" id="q_des" class="form-control" cols="30" rows="2"
+                                placeholder="您喜歡喝甚麼類型的酒？"></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -40,7 +41,7 @@ $pageName = 'guide_question_insert';
         </div>
     </div>
 </div>
-<?php include __DIR__ . '.\..\parts\__main_end.html' ?>
+<?php include __DIR__ . './../parts/__main_end.html' ?>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,53 +60,54 @@ $pageName = 'guide_question_insert';
 </div>
 
 
-<?php include __DIR__ . '.\..\parts\__script.html' ?>
+<?php include __DIR__ . './../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
-    const cate = document.querySelector('#q_cate');
-    const seq = document.querySelector('#q_seq');
-    const des = document.querySelector('#q_des');
+const cate = document.querySelector('#q_cate');
+const seq = document.querySelector('#q_seq');
+const des = document.querySelector('#q_des');
 
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-    //  modal.show() 讓 modal 跳出
-    function sendData() {
-        cate.nextElementSibling.innerHTML = '';
-        seq.nextElementSibling.innerHTML = '';
-        des.nextElementSibling.innerHTML = '';
-        let isPass = true;
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+//  modal.show() 讓 modal 跳出
+function sendData() {
+    cate.nextElementSibling.innerHTML = '';
+    seq.nextElementSibling.innerHTML = '';
+    des.nextElementSibling.innerHTML = '';
+    let isPass = true;
 
-        if (cate.value.length >= 2) {
-            isPass = false;
-            cate.nextElementSibling.innerHTML = '請輸入正確指南種類';
-        }
-        if (seq.value < 1) {
-            isPass = false;
-            seq.nextElementSibling.innerHTML = '請輸入正確問題序號';
-        }
-        if (des.value.length < 5) {
-            isPass = false;
-            des.nextElementSibling.innerHTML = '請輸入正確的指南問題';
-        }
-
-        if (isPass) {
-            const fd = new FormData(document.form_q);
-
-            fetch('guide_question_insert_api.php', {
-                    method: 'POST',
-                    body: fd,
-                }).then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if (obj.success) {
-                        document.querySelector('.modal-body').innerHTML = "資料新增成功";
-                        document.querySelector('.modal-footer').innerHTML = `<a href="guide_question.php" class="btn btn-secondary">完成</a>`;
-                        modal.show();
-                    } else {
-                        document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
-                        modal.show();
-                    }
-                })
-        }
+    if (cate.value.length >= 2) {
+        isPass = false;
+        cate.nextElementSibling.innerHTML = '請輸入正確指南種類';
     }
+    if (seq.value < 1) {
+        isPass = false;
+        seq.nextElementSibling.innerHTML = '請輸入正確問題序號';
+    }
+    if (des.value.length < 5) {
+        isPass = false;
+        des.nextElementSibling.innerHTML = '請輸入正確的指南問題';
+    }
+
+    if (isPass) {
+        const fd = new FormData(document.form_q);
+
+        fetch('guide_question_insert_api.php', {
+                method: 'POST',
+                body: fd,
+            }).then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (obj.success) {
+                    document.querySelector('.modal-body').innerHTML = "資料新增成功";
+                    document.querySelector('.modal-footer').innerHTML =
+                        `<a href="guide_question.php" class="btn btn-secondary">完成</a>`;
+                    modal.show();
+                } else {
+                    document.querySelector('.modal-body').innerHTML = obj.error || '資料新增發生錯誤';
+                    modal.show();
+                }
+            })
+    }
+}
 </script>
-<?php include __DIR__ . '.\..\parts\__foot.html' ?>
+<?php include __DIR__ . './../parts/__foot.html' ?>

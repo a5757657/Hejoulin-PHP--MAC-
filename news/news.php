@@ -1,4 +1,4 @@
-<?php require __DIR__. '\..\parts\__connect_db.php';
+<?php require __DIR__. '/../parts/__connect_db.php';
 $title = "最新消息";
 $pageName = "news_page";
 
@@ -24,18 +24,18 @@ if (! $_SESSION['admin']) {
 $sql = "SELECT * FROM news";
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-<?php include __DIR__ . '\..\parts\__head.php'?>
-<?php include __DIR__ . '\..\parts\__navbar.php'?>
-<?php include __DIR__ . '\..\parts\__sidebar.html'?>
+<?php include __DIR__ . '/../parts/__head.php'?>
+<?php include __DIR__ . '/../parts/__navbar.php'?>
+<?php include __DIR__ . '/../parts/__sidebar.html'?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html'?>
+<?php include __DIR__ . '/../parts/__main_start.html'?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 
 <!-- table -->
 <div class="d-flex justify-content-between mt-5">
     <div>
-    <button type="button" onclick="delete_many()" class="btn btn-secondary btn-sm">刪除所選消息</button>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='news_add.php'">新增消息</button>
+        <button type="button" onclick="delete_many()" class="btn btn-secondary btn-sm">刪除所選消息</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='news_add.php'">新增消息</button>
     </div>
     <!-- 分頁數字鍵頭箭頭  先隱藏-->
     <nav aria-label="Page navigation example" style="display: none">
@@ -64,23 +64,23 @@ $rows = $pdo->query($sql)->fetchAll();
         <thead>
             <tr>
                 <th>
-                    <input class="form-check-input" type="checkbox" value="" id="ckall"/>
+                    <input class="form-check-input" type="checkbox" value="" id="ckall" />
                 </th>
                 <th class="text-center" width="50">刪除</th>
                 <th width="50">編號</th>
                 <th width="100">標題</th>
-                <th >內容</th>
-                <th >封面圖</th>
+                <th>內容</th>
+                <th>封面圖</th>
                 <!-- <th >圖片</th> -->
                 <th width="100">創建日期</th>
                 <th width="100">修改日期</th>
-                <th class="text-center" width="50" >編輯</th>
+                <th class="text-center" width="50">編輯</th>
             </tr>
         </thead>
         <tbody>
-        <?php foreach($rows as $r): ?>
+            <?php foreach($rows as $r): ?>
             <tr>
-                <td >
+                <td>
                     <input class="form-check-input ck" type="checkbox" value="<?= $r['news_id'] ?>" />
                 </td>
                 <td class="text-center">
@@ -102,13 +102,12 @@ $rows = $pdo->query($sql)->fetchAll();
     </table>
 </div>
 <!-- 如果要 modal 的話留下面的結構 -->
-<?php include __DIR__ . '\..\parts\__modal.html'?>
-<?php include __DIR__ . '\..\parts\__script.html'?>
+<?php include __DIR__ . '/../parts/__modal.html'?>
+<?php include __DIR__ . '/../parts/__script.html'?>
 <script>
-
 // 如果要 光箱 modal 的話留下面的 script
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-    const modalBody = document.querySelector('.modal-body');
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+const modalBody = document.querySelector('.modal-body');
 
 
 // 多選設定
@@ -116,14 +115,14 @@ const ckall = document.querySelector("#ckall");
 const ck = document.querySelectorAll(".ck");
 let ck_b = false;
 
-ckall.addEventListener("click", function(e){
-    if (ck_b == false){
-        ck.forEach(item=>{
+ckall.addEventListener("click", function(e) {
+    if (ck_b == false) {
+        ck.forEach(item => {
             item.checked = true;
         })
         ck_b = true;
-    }else{
-        ck.forEach(item=>{
+    } else {
+        ck.forEach(item => {
             item.checked = false;
         })
         ck_b = false;
@@ -132,44 +131,41 @@ ckall.addEventListener("click", function(e){
 
 
 // 刪除單筆資料
-function delete_it(sid){
-        modalBody.innerHTML = `確定要刪除編號為 ${sid} 的資料嗎?`;
-        document.querySelector('.modal-footer').innerHTML = `<a href="news_delete_api.php?sid=${sid}" class="btn btn-secondary">刪除</a>`;
-        modal.show();
-    }
-
-
-// 刪除多筆資料
-function delete_many(){
-        let ck_s = [];
-        let checked = [];
- 
-        for (let i = 0; i<ck.length; i++ ) {
-            if(ck[i].checked == true) {
-                checked.push(ck[i].value)
-            }
-        }
-
-        let str = '';
-        str = checked.join(",");
-
-        // if(confirm(`確定要刪除編號為 ${str} 的資料嗎?`)){
-        //     location.href = `news_delete_api.php?sid=${str}`;
-        // }
-
-        modalBody.innerHTML = `確定要刪除編號為 ${str} 的資料嗎?`;
-        document.querySelector('.modal-footer').innerHTML = `<a href="news_delete_api.php?sid=${str}" class="btn btn-secondary">刪除</a>`;
-        modal.show();
+function delete_it(sid) {
+    modalBody.innerHTML = `確定要刪除編號為 ${sid} 的資料嗎?`;
+    document.querySelector('.modal-footer').innerHTML =
+        `<a href="news_delete_api.php?sid=${sid}" class="btn btn-secondary">刪除</a>`;
+    modal.show();
 }
 
 
+// 刪除多筆資料
+function delete_many() {
+    let ck_s = [];
+    let checked = [];
 
+    for (let i = 0; i < ck.length; i++) {
+        if (ck[i].checked == true) {
+            checked.push(ck[i].value)
+        }
+    }
 
+    let str = '';
+    str = checked.join(",");
 
+    // if(confirm(`確定要刪除編號為 ${str} 的資料嗎?`)){
+    //     location.href = `news_delete_api.php?sid=${str}`;
+    // }
+
+    modalBody.innerHTML = `確定要刪除編號為 ${str} 的資料嗎?`;
+    document.querySelector('.modal-footer').innerHTML =
+        `<a href="news_delete_api.php?sid=${str}" class="btn btn-secondary">刪除</a>`;
+    modal.show();
+}
 </script>
 
 
 
 
 
-<?php include __DIR__ . '\..\parts\__foot.html'?>
+<?php include __DIR__ . '/../parts/__foot.html'?>

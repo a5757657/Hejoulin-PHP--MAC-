@@ -1,4 +1,4 @@
-<?php require __DIR__. '\..\parts\__connect_db.php';
+<?php require __DIR__. '/../parts/__connect_db.php';
 
 $output = [
     'success' => false,

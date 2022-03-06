@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php';
+<?php require __DIR__ . '/../parts/__connect_db.php';
 $title = "新增最新消息";
 $pageName = "news_add_page";
 
@@ -24,11 +24,11 @@ if (! $_SESSION['admin']) {
 $sql = "SELECT * FROM news";
 $rows = $pdo->query($sql)->fetchAll();
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 
 <!-- table -->
@@ -52,25 +52,29 @@ $rows = $pdo->query($sql)->fetchAll();
                     <!-- 我這邊是不是要先加流水號欄位 -->
                     <div class="form-group mb-3 ">
                         <label for="title" class="mb-2">標題</label>
-                        <textarea type="text" class="form-control" id="title" name="title" placeholder="請輸入最新消息標題"></textarea>
+                        <textarea type="text" class="form-control" id="title" name="title"
+                            placeholder="請輸入最新消息標題"></textarea>
                         <div class="text-area"></div>
                     </div>
                     <div class="form-group mb-3 ">
                         <label for="content" class="mb-2">內容</label>
-                        <textarea type="text" class="form-control" id="content" name="content" placeholder="請輸入最新消息內容"></textarea>
+                        <textarea type="text" class="form-control" id="content" name="content"
+                            placeholder="請輸入最新消息內容"></textarea>
                         <div class="text-area"></div>
                     </div>
                     <div class="form-group mb-3 ">
                         <label for="cover_pic" class="mb-2">封面圖片</label>
-                        <input type="text" class="form-control" id="cover_pic" name="cover_pic" placeholder="請上傳封面圖片" style="display: none" />
-                        <div class="text-area" ></div>
+                        <input type="text" class="form-control" id="cover_pic" name="cover_pic" placeholder="請上傳封面圖片"
+                            style="display: none" />
+                        <div class="text-area"></div>
                     </div>
                     <div class="d-flex input-group mb-3">
-                    <input id="sel_file" type="file" name="myfile" accept="image/*" class="form-control">
+                        <input id="sel_file" type="file" name="myfile" accept="image/*" class="form-control">
                     </div>
                     <div class="form-group mb-3 ">
-                        <label for="pics" class="mb-2" style="display: none" >圖片</label>
-                        <input type="text" class="form-control" id="pics" name="pics" placeholder="請上傳圖片" style="display: none" />
+                        <label for="pics" class="mb-2" style="display: none">圖片</label>
+                        <input type="text" class="form-control" id="pics" name="pics" placeholder="請上傳圖片"
+                            style="display: none" />
                         <div class="text-area"></div>
                     </div>
 
@@ -80,7 +84,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-secondary w-20">新增</button>
                     </div>
-<!-- 
+                    <!-- 
                                     上傳圖片
                 <form name="form1" onsubmit="return false;" style="display: none">
                     <input id="sel_file" type="file" name="myfile" accept="image/*">
@@ -97,97 +101,97 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 <!-- 如果要 modal 的話留下面的結構 -->
-<?php include __DIR__ . '\..\parts\__modal.html'?>
-<?php include __DIR__ . '\..\parts\__script.html'?>
+<?php include __DIR__ . '/../parts/__modal.html'?>
+<?php include __DIR__ . '/../parts/__script.html'?>
 <script>
-
 // 如果要 光箱 modal 的話留下面的 script
-    const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
-    const modalBody = document.querySelector('.modal-body');
-    
-    const title = document.querySelector('#title');
-    const content = document.querySelector('#content');
-    const cover_pic = document.querySelector('#cover_pic');
-    const pics = document.querySelector('#pics');
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
+const modalBody = document.querySelector('.modal-body');
 
-    function sendData() {
-        // =======以下確認可以傳值_只是老師示範的===========
-        // const fd = new FormData(document.add_form);
-        // fetch('news_add_api.php',{
-        //     method: 'POST',
-        //     body: fd,
-        // }).then(r=>r.json())
-        // .then(obj=>{
-        //     console.log(obj);
-        // })
+const title = document.querySelector('#title');
+const content = document.querySelector('#content');
+const cover_pic = document.querySelector('#cover_pic');
+const pics = document.querySelector('#pics');
+
+function sendData() {
+    // =======以下確認可以傳值_只是老師示範的===========
+    // const fd = new FormData(document.add_form);
+    // fetch('news_add_api.php',{
+    //     method: 'POST',
+    //     body: fd,
+    // }).then(r=>r.json())
+    // .then(obj=>{
+    //     console.log(obj);
+    // })
 
 
 
-        let isPass = true;
-        // =========檢查表單資料========
+    let isPass = true;
+    // =========檢查表單資料========
 
-        if (title.value.length == 0) {
-            isPass = false;
-            title.nextElementSibling.innerHTML = `
+    if (title.value.length == 0) {
+        isPass = false;
+        title.nextElementSibling.innerHTML = `
             <div class="alert alert-dark mt-2" role="alert">請輸入內容</div>
             `;
-        }
+    }
 
-        if (content.value.length == 0) {
-            isPass = false;
-            content.nextElementSibling.innerHTML = `
+    if (content.value.length == 0) {
+        isPass = false;
+        content.nextElementSibling.innerHTML = `
             <div class="alert alert-dark mt-2" role="alert">請輸入內容</div>
             `;
-        }
+    }
 
-        // if (cover_pic.value.length == 0) {
-        //     isPass = false;
-        //     cover_pic.nextElementSibling.innerHTML = `
-        //     <div class="alert alert-dark mt-2" role="alert">請上傳封面圖片</div>
-        //     `;
-        // }
+    // if (cover_pic.value.length == 0) {
+    //     isPass = false;
+    //     cover_pic.nextElementSibling.innerHTML = `
+    //     <div class="alert alert-dark mt-2" role="alert">請上傳封面圖片</div>
+    //     `;
+    // }
 
-        // if (pics.value.length == 0) {
-        //     isPass = false;
-        //     pics.nextElementSibling.innerHTML = `
-        //     <div class="alert alert-dark mt-2" role="alert">請上傳圖片</div>
-        //     `;
-        // }
+    // if (pics.value.length == 0) {
+    //     isPass = false;
+    //     pics.nextElementSibling.innerHTML = `
+    //     <div class="alert alert-dark mt-2" role="alert">請上傳圖片</div>
+    //     `;
+    // }
 
-        console.log(isPass);
+    console.log(isPass);
 
 
-        if (isPass) {
-            const fd = new FormData(document.add_form);
+    if (isPass) {
+        const fd = new FormData(document.add_form);
 
-            fetch('news_add_api.php', {
-                    method: 'POST',
-                    body: fd,
-                }).then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if(obj.success) {
-			    	document.querySelector('.modal-body').innerHTML = "資料新增成功";
-                    document.querySelector('.modal-footer').innerHTML = `<a href="news.php" class="btn btn-secondary">完成</a>`;
+        fetch('news_add_api.php', {
+                method: 'POST',
+                body: fd,
+            }).then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (obj.success) {
+                    document.querySelector('.modal-body').innerHTML = "資料新增成功";
+                    document.querySelector('.modal-footer').innerHTML =
+                        `<a href="news.php" class="btn btn-secondary">完成</a>`;
                     modal.show();
                 } else {
                     document.querySelector('.modal-body').innerHTML = obj.error || "資料新增發生錯誤";
                     modal.show();
                 }
-                })
+            })
 
 
 
-            // exampleModalLabel.innerHTML = `請上傳圖片`;
-            // header("Location: 'news.php'");
-            // alert('跳轉成功');
-
-        }
-
+        // exampleModalLabel.innerHTML = `請上傳圖片`;
+        // header("Location: 'news.php'");
+        // alert('跳轉成功');
 
     }
+
+
+}
 </script>
 
 
 
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>

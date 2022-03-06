@@ -1,4 +1,4 @@
-<?php require __DIR__ . '\..\parts\__connect_db.php' ?>
+<?php require __DIR__ . '/../parts/__connect_db.php' ?>
 <?php
 $title = '新增資料';
 $pageName = 'add';
@@ -9,10 +9,10 @@ if (!$_SESSION['admin']) {
     exit;
 }
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 
 <div class="container">
     <div class="row">
@@ -55,9 +55,9 @@ if (!$_SESSION['admin']) {
 </div>
 
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal_ash.html' ?>
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . '/../parts/__main_end.html' ?>
+<?php include __DIR__ . '/../parts/__modal_ash.html' ?>
+<?php include __DIR__ . '/../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
     const sub_plan = document.querySelector("#sub_plan");
@@ -110,4 +110,4 @@ if (!$_SESSION['admin']) {
         }
     }
 </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>

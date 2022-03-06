@@ -1,4 +1,4 @@
-<?php require __DIR__ . '.\..\parts\__connect_db.php';
+<?php require __DIR__ . './../parts/__connect_db.php';
 
 header('Content-Type: application/json');
 
@@ -81,4 +81,3 @@ if (!empty($_FILES['container_img'])) {
 }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-

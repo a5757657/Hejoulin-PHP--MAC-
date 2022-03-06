@@ -1,4 +1,4 @@
-<?php require __DIR__ . '.\..\parts\__connect_db.php';
+<?php require __DIR__ . './../parts/__connect_db.php';
 
 if(isset($_GET['gift_d_id'])){
     $gift_d_id = $_GET['gift_d_id'];

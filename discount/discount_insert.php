@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '\..\parts\__connect_db.php';
+require __DIR__ . '/../parts/__connect_db.php';
 
 //if (! isset($_SESSION['admin'])){
 //    header('Location:index.php');
@@ -10,10 +10,10 @@ $pageName = 'discount_insert';
 
 
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 
     <div class="container">
         <div class="row mt-5">
@@ -93,9 +93,9 @@ $pageName = 'discount_insert';
         </div>
     </div>
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
-<?php include __DIR__ . '\..\parts\__modal.html' ?>
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . '/../parts/__main_end.html' ?>
+<?php include __DIR__ . '/../parts/__modal.html' ?>
+<?php include __DIR__ . '/../parts/__script.html' ?>
     <!-- 如果要 modal 的話留下面的 script -->
     <script>
 
@@ -161,4 +161,4 @@ $pageName = 'discount_insert';
         // //  modal.show() 讓 modal 跳出
     </script>
 
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>

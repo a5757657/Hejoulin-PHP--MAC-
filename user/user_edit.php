@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '\..\parts\__connect_db.php';
+require __DIR__ . '/../parts/__connect_db.php';
 
 //if (! isset($_SESSION['user'])){
 //    header('Location:user_list.php');
@@ -21,11 +21,11 @@ if (empty($row)) {
 
 
 ?>
-<?php include __DIR__ . '\..\parts\__head.php' ?>
-<?php include __DIR__ . '\..\parts\__navbar.php' ?>
-<?php include __DIR__ . '\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . '/../parts/__head.php' ?>
+<?php include __DIR__ . '/../parts/__navbar.php' ?>
+<?php include __DIR__ . '/../parts/__sidebar.html' ?>
 
-<?php include __DIR__ . '\..\parts\__main_start.html' ?>
+<?php include __DIR__ . '/../parts/__main_start.html' ?>
 
 
     <div class="container">
@@ -75,9 +75,9 @@ if (empty($row)) {
         </div>
     </div>
 
-<?php include __DIR__ . '\..\parts\__main_end.html' ?>
+<?php include __DIR__ . '/../parts/__main_end.html' ?>
 
-<?php include __DIR__ . '\..\parts\__script.html' ?>
+<?php include __DIR__ . '/../parts/__script.html' ?>
     <script>
 
         const name = document.querySelector('#account');
@@ -124,4 +124,4 @@ if (empty($row)) {
         //  const modal = new bootstrap.Modal(document.querySelector('#exampleModal'));
         // //  modal.show() 讓 modal 跳出
     </script>
-<?php include __DIR__ . '\..\parts\__foot.html' ?>
+<?php include __DIR__ . '/../parts/__foot.html' ?>

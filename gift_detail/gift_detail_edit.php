@@ -1,4 +1,4 @@
-<?php require __DIR__ . '.\..\parts\__connect_db.php';
+<?php require __DIR__ . './../parts/__connect_db.php';
 $title = "修改禮盒資料";
 $pageName = "gift_detail_edit";
 
@@ -14,11 +14,11 @@ if(empty($row)){
     exit;
 }
 ?>
-<?php include __DIR__ . '.\..\parts\__head.php' ?>
-<?php include __DIR__ . '.\..\parts\__navbar.php'?>
-<?php include __DIR__ . '.\..\parts\__sidebar.html' ?>
+<?php include __DIR__ . './../parts/__head.php' ?>
+<?php include __DIR__ . './../parts/__navbar.php'?>
+<?php include __DIR__ . './../parts/__sidebar.html' ?>
 
-<?php include __DIR__ . '.\..\parts\__main_start.html' ?>
+<?php include __DIR__ . './../parts/__main_start.html' ?>
 <!-- 主要的內容放在 __main_start 與 __main_end 之間 -->
 <div class="mt-5">
     <div class="row justify-content-center">
@@ -76,7 +76,7 @@ if(empty($row)){
         </div>
     </div>
 </div>
-<?php include __DIR__ . '.\..\parts\__main_end.html' ?>
+<?php include __DIR__ . './../parts/__main_end.html' ?>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,7 +94,7 @@ if(empty($row)){
     </div>
 </div>
 
-<?php include __DIR__ . '.\..\parts\__script.html' ?>
+<?php include __DIR__ . './../parts/__script.html' ?>
 <!-- 如果要 modal 的話留下面的 script -->
 <script>
     const giftId = document.querySelector('#gift_id');
@@ -181,4 +181,4 @@ if(empty($row)){
         }
     }
 </script>
-<?php include __DIR__ . '.\..\parts\__foot.html' ?>
+<?php include __DIR__ . './../parts/__foot.html' ?>

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '\..\parts\__connect_db.php';
+require __DIR__ . '/../parts/__connect_db.php';
 
 if (isset($_GET['discount_id'])){
     $dId = ($_GET['discount_id']);
